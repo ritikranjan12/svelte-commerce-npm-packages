@@ -1,50 +1,50 @@
 <script lang="ts">
-import { date } from '@misiki/litekart-utils'
-import { goto } from '$app/navigation'
-import LazyImg from '../Image/LazyImg.svelte'
-import ReviewGallery from './ReviewGallery.svelte'
+	import { date } from '@misiki/litekart-utils';
+	import { goto } from '$app/navigation';
+	import LazyImg from '../Image/LazyImg.svelte';
+	import ReviewGallery from './ReviewGallery.svelte';
 
-export let type
-export let product
-export let reviewsSummary = {}
-export let reviews = {}
+	export let type;
+	export let product;
+	export let reviewsSummary = {};
+	export let reviews = {};
 
-// console.log('reviews', reviews)
+	// console.log('reviews', reviews)
 
-let clazz = ''
-export { clazz as class }
+	let clazz = '';
+	export { clazz as class };
 
-let gallery = reviews?.gallery?.data || []
-let openReviewImages = []
-let selectedProductGallery = []
-let selectedReviews = []
-let showGalleryModal = false
+	let gallery = reviews?.gallery?.data || [];
+	let openReviewImages = [];
+	let selectedProductGallery = [];
+	let selectedReviews = [];
+	let showGalleryModal = false;
 
-$: if (type === 'product_review') {
-	selectedReviews = reviews.product?.data
-} else {
-	selectedReviews = reviews.brand?.data
-}
+	$: if (type === 'product_review') {
+		selectedReviews = reviews.product?.data;
+	} else {
+		selectedReviews = reviews.brand?.data;
+	}
 
-const handleSelectedProductGallery = (review, rx) => {
-	selectedProductGallery = review.images
-		.map((item) => {
-			return {
-				createdAt: review.createdAt,
-				image: item,
-				message: review.message,
-				product: review.product,
-				rating: review.rating,
-				user: review.user
-			}
-		})
-		.flat()
+	const handleSelectedProductGallery = (review, rx) => {
+		selectedProductGallery = review.images
+			.map((item) => {
+				return {
+					createdAt: review.createdAt,
+					image: item,
+					message: review.message,
+					product: review.product,
+					rating: review.rating,
+					user: review.user
+				};
+			})
+			.flat();
 
-	openReviewImages[rx] = true
-}
+		openReviewImages[rx] = true;
+	};
 </script>
 
-<div id="ratings-and-reviews" class="{clazz}">
+<div id="ratings-and-reviews" class={clazz}>
 	<!-- Heading -->
 
 	<div class="mb-2 flex items-center gap-2 uppercase">
@@ -56,7 +56,8 @@ const handleSelectedProductGallery = (review, rx) => {
 			fill="none"
 			viewBox="0 0 24 24"
 			stroke="currentColor"
-			stroke-width="1">
+			stroke-width="1"
+		>
 			<path
 				stroke-linecap="round"
 				stroke-linejoin="round"
@@ -72,7 +73,8 @@ const handleSelectedProductGallery = (review, rx) => {
 
 				<div class="flex">
 					<div
-						class="flex w-40 flex-col items-center justify-center border-r border-zinc-200 px-3 text-center">
+						class="flex w-40 flex-col items-center justify-center border-r border-zinc-200 px-3 text-center"
+					>
 						<div class="mb-2 flex items-end gap-2">
 							<span class="text-4xl sm:text-5xl">
 								{reviewsSummary?.summary?.ratings_avg?.value.toFixed(1).replace(/\.0+$/, '')}
@@ -82,9 +84,11 @@ const handleSelectedProductGallery = (review, rx) => {
 								xmlns="http://www.w3.org/2000/svg"
 								class="h-6 w-6 text-primary-500"
 								viewBox="0 0 20 20"
-								fill="currentColor">
+								fill="currentColor"
+							>
 								<path
-									d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+									d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+								>
 								</path>
 							</svg>
 						</div>
@@ -104,7 +108,8 @@ const handleSelectedProductGallery = (review, rx) => {
 										xmlns="http://www.w3.org/2000/svg"
 										class="h-4 w-4 text-zinc-200"
 										viewBox="0 0 20 20"
-										fill="currentColor">
+										fill="currentColor"
+									>
 										<path
 											d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
 										></path>
@@ -114,12 +119,12 @@ const handleSelectedProductGallery = (review, rx) => {
 								<div class="relative h-1 w-full rounded-full bg-zinc-200">
 									<div
 										class="absolute inset-y-0 left-0 rounded-full bg-brand-500"
-										class:bg-secondary-500="{r.key == 2}"
-										class:bg-accent-500="{r.key == 1}"
+										class:bg-secondary-500={r.key == 2}
+										class:bg-accent-500={r.key == 1}
 										style="width: {Math.round(
 											(r.doc_count / reviewsSummary?.summary?.ratings_sum?.value) * 100
-										)}%">
-									</div>
+										)}%"
+									></div>
 								</div>
 
 								<span class="w-8 text-right">
@@ -146,7 +151,8 @@ const handleSelectedProductGallery = (review, rx) => {
 									<li class="flex items-start gap-2">
 										{#if review.rating}
 											<div
-												class="flex max-w-max items-center gap-0.5 rounded bg-primary-500 px-1.5 py-0.5 text-xs font-semibold text-white">
+												class="flex max-w-max items-center gap-0.5 rounded bg-primary-500 px-1.5 py-0.5 text-xs font-semibold text-white"
+											>
 												<span>
 													{review.rating}
 												</span>
@@ -155,7 +161,8 @@ const handleSelectedProductGallery = (review, rx) => {
 													xmlns="http://www.w3.org/2000/svg"
 													class="h-3 w-3"
 													viewBox="0 0 20 20"
-													fill="currentColor">
+													fill="currentColor"
+												>
 													<path
 														d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
 													></path>
@@ -174,19 +181,22 @@ const handleSelectedProductGallery = (review, rx) => {
 												<button
 													type="button"
 													class="flex flex-wrap gap-1"
-													on:click="{() => handleSelectedProductGallery(review, rx)}">
+													on:click={() => handleSelectedProductGallery(review, rx)}
+												>
 													{#each review?.images as img}
 														<img
-															src="{img}"
+															src={img}
 															alt=""
-															class="h-20 w-14 rounded object-cover border bg-white" />
+															class="h-20 w-14 rounded object-cover border bg-white"
+														/>
 													{/each}
 												</button>
 
 												<ReviewGallery
-													showPhotosModal="{openReviewImages[rx]}"
-													gallery="{selectedProductGallery}"
-													on:close="{() => (openReviewImages[rx] = false)}" />
+													showPhotosModal={openReviewImages[rx]}
+													gallery={selectedProductGallery}
+													on:close={() => (openReviewImages[rx] = false)}
+												/>
 											{/if}
 
 											<div class="flex flex-wrap items-center gap-1 text-zinc-500 text-xs">
@@ -217,7 +227,8 @@ const handleSelectedProductGallery = (review, rx) => {
 						<a href="/all-reviews/{product?.slug}?brandId={product?.brand?._id}&type={type}">
 							<button
 								type="button"
-								class="border rounded-full py-1 px-4 text-xs text-primary-500 hover:bg-primary-500 hover:text-white transition duration-700 focus:outline-none">
+								class="border rounded-full py-1 px-4 text-xs text-primary-500 hover:bg-primary-500 hover:text-white transition duration-700 focus:outline-none"
+							>
 								View All Reviews
 							</button>
 						</a>
@@ -229,90 +240,104 @@ const handleSelectedProductGallery = (review, rx) => {
 						<button
 							type="button"
 							class="w-full max-h-max focus:outline-none"
-							on:click="{() => (showGalleryModal = true)}">
+							on:click={() => (showGalleryModal = true)}
+						>
 							<div class="grid grid-cols-3 grid-rows-3 gap-2 max-w-sm">
 								{#if gallery[0]?.images[0]}
 									<LazyImg
-										src="{gallery[0]?.images[0]}"
+										src={gallery[0]?.images[0]}
 										height="168"
 										width="224"
 										aspect_ratio="4:3"
-										class="col-span-2 row-span-2 w-full h-[168px] rounded object-cover border" />
+										class="col-span-2 row-span-2 w-full h-[168px] rounded object-cover border"
+									/>
 								{/if}
 
 								{#if gallery[1]?.images[0]}
 									<LazyImg
-										src="{gallery[1]?.images[0]}"
+										src={gallery[1]?.images[0]}
 										height="80"
 										width="106"
 										aspect_ratio="4:3"
-										class="col-span-1 row-span-1 w-full h-20 rounded object-cover border" />
+										class="col-span-1 row-span-1 w-full h-20 rounded object-cover border"
+									/>
 								{:else}
 									<div
-										class="col-span-1 row-span-1 w-full h-20 rounded bg-zinc-100 border overflow-hidden flex items-center justify-center text-center text-zinc-400 text-sm">
+										class="col-span-1 row-span-1 w-full h-20 rounded bg-zinc-100 border overflow-hidden flex items-center justify-center text-center text-zinc-400 text-sm"
+									>
 										No image
 									</div>
 								{/if}
 
 								{#if gallery[2]?.images[0]}
 									<LazyImg
-										src="{gallery[2]?.images[0]}"
+										src={gallery[2]?.images[0]}
 										height="80"
 										width="106"
 										aspect_ratio="4:3"
-										class="col-span-1 row-span-1 w-full h-20 rounded object-cover border" />
+										class="col-span-1 row-span-1 w-full h-20 rounded object-cover border"
+									/>
 								{:else}
 									<div
-										class="col-span-1 row-span-1 w-full h-20 rounded bg-zinc-100 border overflow-hidden flex items-center justify-center text-center text-zinc-400 text-sm">
+										class="col-span-1 row-span-1 w-full h-20 rounded bg-zinc-100 border overflow-hidden flex items-center justify-center text-center text-zinc-400 text-sm"
+									>
 										No image
 									</div>
 								{/if}
 
 								{#if gallery[3]?.images[0]}
 									<LazyImg
-										src="{gallery[3]?.images[0]}"
+										src={gallery[3]?.images[0]}
 										height="80"
 										width="106"
 										aspect_ratio="4:3"
-										class="col-span-1 row-span-1 w-full h-20 rounded object-cover border" />
+										class="col-span-1 row-span-1 w-full h-20 rounded object-cover border"
+									/>
 								{:else}
 									<div
-										class="col-span-1 row-span-1 w-full h-20 rounded bg-zinc-100 border overflow-hidden flex items-center justify-center text-center text-zinc-400 text-sm">
+										class="col-span-1 row-span-1 w-full h-20 rounded bg-zinc-100 border overflow-hidden flex items-center justify-center text-center text-zinc-400 text-sm"
+									>
 										No image
 									</div>
 								{/if}
 
 								{#if gallery[4]?.images[0]}
 									<LazyImg
-										src="{gallery[4]?.images[0]}"
+										src={gallery[4]?.images[0]}
 										height="80"
 										width="106"
 										aspect_ratio="4:3"
-										class="col-span-1 row-span-1 w-full h-20 rounded object-cover border" />
+										class="col-span-1 row-span-1 w-full h-20 rounded object-cover border"
+									/>
 								{:else}
 									<div
-										class="col-span-1 row-span-1 w-full h-20 rounded bg-zinc-100 border overflow-hidden flex items-center justify-center text-center text-zinc-400 text-sm">
+										class="col-span-1 row-span-1 w-full h-20 rounded bg-zinc-100 border overflow-hidden flex items-center justify-center text-center text-zinc-400 text-sm"
+									>
 										No image
 									</div>
 								{/if}
 
 								{#if gallery?.length - 5 > 0}
 									<div
-										class="relative col-span-1 row-span-1 w-full h-20 rounded bg-white border overflow-hidden">
+										class="relative col-span-1 row-span-1 w-full h-20 rounded bg-white border overflow-hidden"
+									>
 										<LazyImg
-											src="{gallery[5]?.images[0]}"
+											src={gallery[5]?.images[0]}
 											height="80"
 											width="80"
 											aspect_ratio="4:3"
-											class="w-full h-20 rounded object-cover " />
+											class="w-full h-20 rounded object-cover "
+										/>
 										<div
-											class="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center font-bold text-xl text-white">
+											class="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center font-bold text-xl text-white"
+										>
 											+{gallery?.length - 5}
 										</div>
 									</div>
 								{:else}
 									<div
-										class="col-span-1 row-span-1 rounded bg-zinc-100 border overflow-hidden flex items-center justify-center text-center text-zinc-400 text-sm">
+										class="col-span-1 row-span-1 rounded bg-zinc-100 border overflow-hidden flex items-center justify-center text-center text-zinc-400 text-sm"
+									>
 										No image
 									</div>
 								{/if}
@@ -320,9 +345,10 @@ const handleSelectedProductGallery = (review, rx) => {
 						</button>
 
 						<ReviewGallery
-							showPhotosModal="{showGalleryModal}"
+							showPhotosModal={showGalleryModal}
 							{gallery}
-							on:close="{() => (showGalleryModal = false)}" />
+							on:close={() => (showGalleryModal = false)}
+						/>
 					{/if}
 				{/if}
 			</div>
@@ -337,19 +363,21 @@ const handleSelectedProductGallery = (review, rx) => {
 		<button
 			type="button"
 			class="group flex items-center gap-1 text-primary-500 focus:outline-none hover:text-primary-700"
-			on:click="{() =>
-				goto(`/my/reviews/create?pid=${product?._id}&ref=/product/${product?.slug}`)}">
+			on:click={() => goto(`/my/reviews/create?pid=${product?._id}&ref=/product/${product?.slug}`)}
+		>
 			<h6>Add Your Review</h6>
 
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-4 w-4 transform transition duration-500 group-hover:translate-x-2"
 				viewBox="0 0 20 20"
-				fill="currentColor">
+				fill="currentColor"
+			>
 				<path
 					fill-rule="evenodd"
 					d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-					clip-rule="evenodd"></path>
+					clip-rule="evenodd"
+				></path>
 			</svg>
 		</button>
 	</div>

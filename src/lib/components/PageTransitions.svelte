@@ -1,22 +1,11 @@
-<style>
-.transition-outer {
-	display: grid;
-	grid-template: 1fr 1fr;
-}
-.transition-inner {
-	grid-row: 1;
-	grid-column: 1;
-}
-</style>
-
 <!-- PageTransition.svelte -->
 <script>
-import { fly, scale } from 'svelte/transition'
-import { quintOut } from 'svelte/easing'
+	import { fly, scale } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
 
-export let url = ''
+	export let url = '';
 
-const pageTransitionDuration = 500
+	const pageTransitionDuration = 500;
 </script>
 
 <!-- in:fly={{
@@ -30,8 +19,20 @@ const pageTransitionDuration = 500
 	{#key url}
 		<div
 			class="transition-inner flex flex-col justify-center"
-			transition:scale="{{ delay: 0, duration: 100, easing: quintOut }}">
+			transition:scale={{ delay: 0, duration: 100, easing: quintOut }}
+		>
 			<slot />
 		</div>
 	{/key}
 </div>
+
+<style>
+	.transition-outer {
+		display: grid;
+		grid-template: 1fr 1fr;
+	}
+	.transition-inner {
+		grid-row: 1;
+		grid-column: 1;
+	}
+</style>

@@ -1,103 +1,77 @@
-<style>
-.shadow-effect:hover {
-	box-shadow: 0 2px 16px 4px rgba(40, 44, 63, 0.07);
-}
-/* .zoom {
-	overflow: hidden;
-}
-.zoom img {
-	transition: transform 0.7s;
-}
-.zoom:hover img {
-	transform: scale(1.035);
-} */
-.trans {
-	transition: width 0.3s;
-	overflow: hidden;
-	justify-content: start;
-	padding-left: 2px;
-}
-.trans:hover {
-	width: 130px;
-	padding-left: 0px;
-	justify-content: center;
-}
-.text-rem {
-	font-size: 0.6rem;
-}
-</style>
-
 <script>
-import { currency } from '@misiki/litekart-utils'
-import { fly } from 'svelte/transition'
-import { page } from '$app/stores'
-import LazyImg from '$lib/components/Image/LazyImg.svelte'
-import productNonVeg from '$lib/assets/product/non-veg.png'
-import productVeg from '$lib/assets/product/veg.png'
-// import { storeStore } from '$lib/store/store'
-import { browser } from '$app/environment'
-import { onMount } from 'svelte'
+	import { currency } from '@misiki/litekart-utils';
+	import { fly } from 'svelte/transition';
+	import { page } from '$app/stores';
+	import LazyImg from '$lib/components/Image/LazyImg.svelte';
+	import productNonVeg from '$lib/assets/product/non-veg.png';
+	import productVeg from '$lib/assets/product/veg.png';
+	// import { storeStore } from '$lib/store/store'
+	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
-export let product = {}
-// console.log('zzzzzzzzzzzzzzzzzz', product)
+	export let product = {};
+	// console.log('zzzzzzzzzzzzzzzzzz', product)
 
-if (product?._source) {
-	product = product?._source
-}
-
-let isWislisted = false
-let loadingForWishlist = false
-let product_image_dimension = $page.data.store?.product_image_dimension || '3x4'
-let ribbonTags = []
-let show = false
-let showRelatedProducts = false
-
-function showitems() {
-	show = true
-}
-
-function hideitems() {
-	show = false
-}
-
-// console.log('product', product)
-
-if (product?.tags?.length) {
-	ribbonTags = product?.tags.filter((tag) => {
-		return tag.type === 'Ribbon'
-	})
-
-	// console.log('Ribbon tags =', ribbonTags)
-}
-
-$: store = $page.data?.store
-
-onMount(async () => {
-	if (browser) {
-		// storeStore.subscribe((value) => (store = value))
+	if (product?._source) {
+		product = product?._source;
 	}
-})
+
+	let isWislisted = false;
+	let loadingForWishlist = false;
+	let product_image_dimension = $page.data.store?.product_image_dimension || '3x4';
+	let ribbonTags = [];
+	let show = false;
+	let showRelatedProducts = false;
+
+	function showitems() {
+		show = true;
+	}
+
+	function hideitems() {
+		show = false;
+	}
+
+	// console.log('product', product)
+
+	if (product?.tags?.length) {
+		ribbonTags = product?.tags.filter((tag) => {
+			return tag.type === 'Ribbon';
+		});
+
+		// console.log('Ribbon tags =', ribbonTags)
+	}
+
+	$: store = $page.data?.store;
+
+	onMount(async () => {
+		if (browser) {
+			// storeStore.subscribe((value) => (store = value))
+		}
+	});
 </script>
 
 {#if product}
 	<div
 		class="group relative col-span-1 block w-full sm:shrink-0 rounded bg-white shadow-effect overflow-hidden sm:overflow-visible
 		{product_image_dimension == '16x9' ? 'md:w-[420px]' : 'sm:w-[210px]'}"
-		on:mouseenter="{showitems}"
-		on:mouseleave="{hideitems}">
+		on:mouseenter={showitems}
+		on:mouseleave={hideitems}
+	>
 		<a
 			href="/product/{product.slug}"
 			rel="noopener noreferrer"
 			aria-label="Click to view the product details"
 			data-sveltekit-preload-data="tap"
-			class="flex flex-col items-center">
+			class="flex flex-col items-center"
+		>
 			<!-- New and Tags -->
 
 			{#if ribbonTags?.length || product?.new}
 				<div class="absolute z-10 top-1 left-1 flex flex-col gap-0.5">
 					{#if product.new}
 						<div
-							class="text-rem max-w-max bg-red-500 py-0.5 px-1.5 text-xs font-semibold uppercase text-white">
+							class="text-rem max-w-max bg-red-500 py-0.5 px-1.5 text-xs font-semibold uppercase text-white"
+						>
 							New
 						</div>
 					{/if}
@@ -106,7 +80,8 @@ onMount(async () => {
 						{#each ribbonTags as tag}
 							<div
 								class="text-rem max-w-max py-0.5 px-1.5 text-xs font-semibold uppercase text-white"
-								style="background-color: {tag.colorCode || '#27272A'};">
+								style="background-color: {tag.colorCode || '#27272A'};"
+							>
 								{tag.name}
 							</div>
 						{/each}
@@ -117,21 +92,24 @@ onMount(async () => {
 			{#if product_image_dimension == '1x1'}
 				{#if product.img || (product.images && product.images[0])}
 					<LazyImg
-						src="{product.img || (product.images && product.images[0])}"
-						alt="{product.name}"
+						src={product.img || (product.images && product.images[0])}
+						alt={product.name}
 						height="210"
 						aspect_ratio="1:1"
-						class="object-contain object-bottom w-[210px] h-[210px] text-xs rounded" />
+						class="object-contain object-bottom w-[210px] h-[210px] text-xs rounded"
+					/>
 				{:else}
 					<div
-						class="w-[210px] h-[210px] bg-zinc-100 flex flex-col items-center justify-center p-5 text-zinc-500 text-xs text-center">
+						class="w-[210px] h-[210px] bg-zinc-100 flex flex-col items-center justify-center p-5 text-zinc-500 text-xs text-center"
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
 							viewBox="0 0 24 24"
 							stroke-width="1.5"
 							stroke="currentColor"
-							class="w-6 h-6">
+							class="w-6 h-6"
+						>
 							<path
 								stroke-linecap="round"
 								stroke-linejoin="round"
@@ -145,21 +123,24 @@ onMount(async () => {
 			{:else if product_image_dimension == '3x4'}
 				{#if product.img || (product.images && product.images[0])}
 					<LazyImg
-						src="{product.img || (product.images && product.images[0])}"
-						alt="{product.name}"
+						src={product.img || (product.images && product.images[0])}
+						alt={product.name}
 						height="280"
 						aspect_ratio="3:4"
-						class="object-contain object-bottom w-[210px] h-[280px] text-xs" />
+						class="object-contain object-bottom w-[210px] h-[280px] text-xs"
+					/>
 				{:else}
 					<div
-						class="w-[210px] h-[280px] bg-zinc-100 flex flex-col items-center justify-center p-5 text-zinc-500 text-xs text-center">
+						class="w-[210px] h-[280px] bg-zinc-100 flex flex-col items-center justify-center p-5 text-zinc-500 text-xs text-center"
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
 							viewBox="0 0 24 24"
 							stroke-width="1.5"
 							stroke="currentColor"
-							class="w-6 h-6">
+							class="w-6 h-6"
+						>
 							<path
 								stroke-linecap="round"
 								stroke-linejoin="round"
@@ -173,21 +154,24 @@ onMount(async () => {
 			{:else if product_image_dimension == '4x3'}
 				{#if product.img || (product.images && product.images[0])}
 					<LazyImg
-						src="{product.img || (product.images && product.images[0])}"
-						alt="{product.name}"
+						src={product.img || (product.images && product.images[0])}
+						alt={product.name}
 						height="157"
 						aspect_ratio="4:3"
-						class="object-contain object-bottom w-[210px] h-[157px] text-xs" />
+						class="object-contain object-bottom w-[210px] h-[157px] text-xs"
+					/>
 				{:else}
 					<div
-						class="w-[210px] h-[157px] bg-zinc-100 flex flex-col items-center justify-center p-5 text-zinc-500 text-xs text-center">
+						class="w-[210px] h-[157px] bg-zinc-100 flex flex-col items-center justify-center p-5 text-zinc-500 text-xs text-center"
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
 							viewBox="0 0 24 24"
 							stroke-width="1.5"
 							stroke="currentColor"
-							class="w-6 h-6">
+							class="w-6 h-6"
+						>
 							<path
 								stroke-linecap="round"
 								stroke-linejoin="round"
@@ -201,21 +185,24 @@ onMount(async () => {
 			{:else if product_image_dimension == '16x9'}
 				{#if product.img || (product.images && product.images[0])}
 					<LazyImg
-						src="{product.img || (product.images && product.images[0])}"
-						alt="{product.name}"
+						src={product.img || (product.images && product.images[0])}
+						alt={product.name}
 						height="236"
 						aspect_ratio="16:9"
-						class="object-contain object-bottom w-[420px] h-[236px] text-xs" />
+						class="object-contain object-bottom w-[420px] h-[236px] text-xs"
+					/>
 				{:else}
 					<div
-						class="w-[420px] h-[236px] bg-zinc-100 flex flex-col items-center justify-center p-5 text-zinc-500 text-xs text-center">
+						class="w-[420px] h-[236px] bg-zinc-100 flex flex-col items-center justify-center p-5 text-zinc-500 text-xs text-center"
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
 							viewBox="0 0 24 24"
 							stroke-width="1.5"
 							stroke="currentColor"
-							class="w-6 h-6">
+							class="w-6 h-6"
+						>
 							<path
 								stroke-linecap="round"
 								stroke-linejoin="round"
@@ -229,21 +216,24 @@ onMount(async () => {
 			{:else if product_image_dimension == '9x16'}
 				{#if product.img || (product.images && product.images[0])}
 					<LazyImg
-						src="{product.img || (product.images && product.images[0])}"
-						alt="{product.name}"
+						src={product.img || (product.images && product.images[0])}
+						alt={product.name}
 						height="373"
 						aspect_ratio="9:16"
-						class="object-contain object-bottom w-[210px] h-[373px] text-xs" />
+						class="object-contain object-bottom w-[210px] h-[373px] text-xs"
+					/>
 				{:else}
 					<div
-						class="w-[210px] h-[373px] bg-zinc-100 flex flex-col items-center justify-center p-5 text-zinc-500 text-xs text-center">
+						class="w-[210px] h-[373px] bg-zinc-100 flex flex-col items-center justify-center p-5 text-zinc-500 text-xs text-center"
+					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							fill="none"
 							viewBox="0 0 24 24"
 							stroke-width="1.5"
 							stroke="currentColor"
-							class="w-6 h-6">
+							class="w-6 h-6"
+						>
 							<path
 								stroke-linecap="round"
 								stroke-linejoin="round"
@@ -435,7 +425,8 @@ onMount(async () => {
 				<a
 					href="/product/{product.slug}"
 					aria-label="Click to view the product details"
-					data-sveltekit-preload-data>
+					data-sveltekit-preload-data
+				>
 					<!-- <div class="mb-1.5 flex items-center justify-between"> -->
 
 					{#if product.brand?.name || product.brandName}
@@ -465,16 +456,17 @@ onMount(async () => {
 
 					<div class="flex gap-2 justify-between">
 						<h4
-							class="flex-1 text-xs sm:text-sm font-normal text-zinc-500 line-clamp-2 w-full group-hover:underline">
+							class="flex-1 text-xs sm:text-sm font-normal text-zinc-500 line-clamp-2 w-full group-hover:underline"
+						>
 							{product.name || '_'}
 						</h4>
 
 						{#if $page?.data?.store?.isFnb && product.foodType}
 							<div>
 								{#if product.foodType === 'veg'}
-									<img src="{productVeg}" alt="veg" class="h-5 w-5" />
+									<img src={productVeg} alt="veg" class="h-5 w-5" />
 								{:else if product.foodType === 'nonveg'}
-									<img src="{productNonVeg}" alt="non veg" class="h-5 w-5" />
+									<img src={productNonVeg} alt="non veg" class="h-5 w-5" />
 								{/if}
 							</div>
 						{/if}
@@ -487,7 +479,8 @@ onMount(async () => {
 
 						<a
 							href="/store/{product?.vendor?.slug}"
-							class="block w-full truncate font-semibold hover:text-zinc-800 capitalize">
+							class="block w-full truncate font-semibold hover:text-zinc-800 capitalize"
+						>
 							{product?.vendor?.businessName}
 						</a>
 					</div>
@@ -499,14 +492,16 @@ onMount(async () => {
 				<a
 					href="/product/{product.slug}"
 					aria-label="Click to view the product details"
-					data-sveltekit-preload-data>
+					data-sveltekit-preload-data
+				>
 					<!-- Price, MRP and Discount -->
 
 					{#if product.price}
 						<div
 							class="{$page.data.store?.isSecureCatalogue && !$page.data?.me
 								? 'hidden'
-								: 'flex'} mt-1 flex-wrap items-baseline justify-start gap-1.5 text-xs leading-3">
+								: 'flex'} mt-1 flex-wrap items-baseline justify-start gap-1.5 text-xs leading-3"
+						>
 							<span class="text-base font-bold whitespace-nowrap leading-3">
 								{currency(product.price, store?.currencySymbol)}
 							</span>
@@ -533,25 +528,30 @@ onMount(async () => {
 		<div class="fixed inset-0 z-[100] h-screen w-full">
 			<button
 				class="absolute inset-0 cursor-default bg-black bg-opacity-50 focus:outline-none"
-				on:click="{() => (showRelatedProducts = false)}">
+				on:click={() => (showRelatedProducts = false)}
+			>
 			</button>
 
 			<div
-				transition:fly="{{ x: 400, duration: 500 }}"
-				class="absolute inset-y-0 right-0 z-[101] h-full max-w-max border-l bg-white">
+				transition:fly={{ x: 400, duration: 500 }}
+				class="absolute inset-y-0 right-0 z-[101] h-full max-w-max border-l bg-white"
+			>
 				<button
 					type="button"
 					class="absolute top-5 right-4 transform cursor-pointer text-zinc-500 transition duration-300 focus:outline-none hover:scale-125 hover:text-zinc-800"
-					on:click="{() => (showRelatedProducts = false)}">
+					on:click={() => (showRelatedProducts = false)}
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						class="h-5 w-5"
 						viewBox="0 0 20 20"
-						fill="currentColor">
+						fill="currentColor"
+					>
 						<path
 							fill-rule="evenodd"
 							d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-							clip-rule="evenodd"></path>
+							clip-rule="evenodd"
+						></path>
 					</svg>
 				</button>
 
@@ -565,22 +565,25 @@ onMount(async () => {
 									href="/product/{relatedProduct.slug}"
 									rel="noopener noreferrer"
 									class="group relative w-full sm:w-48"
-									on:click="{() => (showRelatedProducts = false)}">
+									on:click={() => (showRelatedProducts = false)}
+								>
 									<!-- New -->
 
 									{#if relatedProduct.new}
 										<div
-											class="text-rem absolute top-2 left-2 max-w-max rounded bg-red-500 py-0.5 px-1.5 text-center uppercase tracking-wider text-white">
+											class="text-rem absolute top-2 left-2 max-w-max rounded bg-red-500 py-0.5 px-1.5 text-center uppercase tracking-wider text-white"
+										>
 											NEW
 										</div>
 									{/if}
 
 									<div class="w-[210px] h-[280px] overflow-hidden">
 										<LazyImg
-											src="{product.img || (product.images && product.images[0])}"
-											alt="{product.name}"
+											src={product.img || (product.images && product.images[0])}
+											alt={product.name}
 											height="280"
-											class="object-contain object-bottom w-[210px] h-[280px] text-xs" />
+											class="object-contain object-bottom w-[210px] h-[280px] text-xs"
+										/>
 									</div>
 
 									<div class="p-4">
@@ -591,7 +594,8 @@ onMount(async () => {
 										{/if}
 
 										<h3
-											class="overflow-hidden overflow-ellipsis whitespace-nowrap text-sm group-hover:underline">
+											class="overflow-hidden overflow-ellipsis whitespace-nowrap text-sm group-hover:underline"
+										>
 											{#if relatedProduct.name}
 												{relatedProduct.name}
 											{:else}
@@ -600,7 +604,8 @@ onMount(async () => {
 										</h3>
 
 										<div
-											class="mt-2.5 flex flex-wrap items-baseline justify-start leading-4 text-xs gap-1.5">
+											class="mt-2.5 flex flex-wrap items-baseline justify-start leading-4 text-xs gap-1.5"
+										>
 											<span class="font-semibold sm:text-sm whitespace-nowrap">
 												{currency(relatedProduct.price, store?.currencySymbol)}
 											</span>
@@ -630,3 +635,32 @@ onMount(async () => {
 		</div>
 	{/if}
 {/if}
+
+<style>
+	.shadow-effect:hover {
+		box-shadow: 0 2px 16px 4px rgba(40, 44, 63, 0.07);
+	}
+	/* .zoom {
+	overflow: hidden;
+}
+.zoom img {
+	transition: transform 0.7s;
+}
+.zoom:hover img {
+	transform: scale(1.035);
+} */
+	.trans {
+		transition: width 0.3s;
+		overflow: hidden;
+		justify-content: start;
+		padding-left: 2px;
+	}
+	.trans:hover {
+		width: 130px;
+		padding-left: 0px;
+		justify-content: center;
+	}
+	.text-rem {
+		font-size: 0.6rem;
+	}
+</style>

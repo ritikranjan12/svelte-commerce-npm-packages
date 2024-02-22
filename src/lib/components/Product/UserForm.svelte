@@ -1,15 +1,16 @@
 <script lang="ts">
-import TextboxFloating from '$lib/ui/TextboxFloating.svelte'
-import { slide } from 'svelte/transition'
+	import TextboxFloating from '$lib/ui/TextboxFloating.svelte';
+	import { slide } from 'svelte/transition';
 
-export let showUserInputForm = false
+	export let showUserInputForm = false;
 </script>
 
 {#if showUserInputForm}
 	<div
-		transition:slide="{{ duration: 500 }}"
+		transition:slide={{ duration: 500 }}
 		class="fixed inset-x-0 bottom-0 z-[60] overflow-hidden border-t bg-white lg:hidden"
-		style="box-shadow: 0px -4px 10px rgba(50, 50, 50, 0.2);">
+		style="box-shadow: 0px -4px 10px rgba(50, 50, 50, 0.2);"
+	>
 		<div class="w-full max-w-md rounded-3xl bg-white">
 			<h2 class="border-b p-4 text-lg font-bold tracking-wide sm:px-8 sm:text-xl">Fill The Form</h2>
 

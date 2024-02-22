@@ -1,78 +1,47 @@
-<style>
-.mega-menu {
-	visibility: hidden;
-	transition: 0.3s 0.1s; /* delay of 1 seconds on hover off */
-	opacity: 0;
-	left: 0;
-	position: absolute;
-	text-align: left;
-	left: 10%;
-	right: 20%;
-	width: 70%;
-	z-index: 9999;
-}
-
-/* #hoverable Class Styles
-  –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.hoverable {
-	position: static;
-}
-
-.hoverable > a::after {
-	padding-left: 6px;
-	position: relative;
-}
-
-.hoverable:hover .mega-menu {
-	visibility: visible;
-	opacity: 1;
-}
-</style>
-
 <script lang="ts">
-import { browser } from '$app/environment'
-import { CategoryService } from '$lib/services'
-import { fade } from 'svelte/transition'
-import { getContext, onMount } from 'svelte'
-import { getMegamenuFromStore } from '$lib/store/megamenu'
-import { navigateToProperPath, toast } from '@misiki/litekart-utils'
-import { page } from '$app/stores'
-import Cookie from 'cookie-universal'
+	import { browser } from '$app/environment';
+	import { CategoryService } from '$lib/services';
+	import { fade } from 'svelte/transition';
+	import { getContext, onMount } from 'svelte';
+	import { getMegamenuFromStore } from '$lib/store/megamenu';
+	import { navigateToProperPath, toast } from '@misiki/litekart-utils';
+	import { page } from '$app/stores';
+	import Cookie from 'cookie-universal';
 
-let clazz = ''
-export { clazz as class }
+	let clazz = '';
+	export { clazz as class };
 
-const cookies = Cookie()
+	const cookies = Cookie();
 
-let menuItems = []
-let pincode = null
-let selectedCategory = ''
-let toggleMenuItemChildren = []
+	let menuItems = [];
+	let pincode = null;
+	let selectedCategory = '';
+	let toggleMenuItemChildren = [];
 
-onMount(() => {
-	getMegaMenu()
+	onMount(() => {
+		getMegaMenu();
 
-	const pin = cookies.get('zip')
+		const pin = cookies.get('zip');
 
-	if (pin && pin.toString()?.length === 6) {
-		pincode = pin
-	}
-})
-
-async function getMegaMenu() {
-	if (browser && $page.data.isDesktop) {
-		try {
-			menuItems = await getMegamenuFromStore({
-				storeId: $page?.data?.storeId,
-				origin: $page.data.origin
-			})
-		} catch (e) {
-			toast(e, 'error')
-		} finally {
+		if (pin && pin.toString()?.length === 6) {
+			pincode = pin;
 		}
-	} else {
+	});
+
+	async function getMegaMenu() {
+		if (browser && $page.data.isDesktop) {
+			try {
+				menuItems = await getMegamenuFromStore({
+					storeId: $page?.data?.storeId,
+					origin: $page.data.origin
+				});
+			} catch (e) {
+				toast(e, 'error');
+			} finally {
+			}
+		} else {
+		}
 	}
-}
 </script>
 
 {#if menuItems?.length}
@@ -80,16 +49,17 @@ async function getMegaMenu() {
 		{#each menuItems as category, index}
 			<li
 				class="hoverable mx-1"
-				on:mousemove="{() => {
-					selectedCategory = category.name
-					toggleMenuItemChildren[index] = true
-				}}"
-				on:mouseleave="{() => {
-					selectedCategory = ''
-					toggleMenuItemChildren[index] = false
-				}}">
+				on:mousemove={() => {
+					selectedCategory = category.name;
+					toggleMenuItemChildren[index] = true;
+				}}
+				on:mouseleave={() => {
+					selectedCategory = '';
+					toggleMenuItemChildren[index] = false;
+				}}
+			>
 				<a
-					href="{navigateToProperPath(category.link || category.slug)}"
+					href={navigateToProperPath(category.link || category.slug)}
 					aria-label="Click to visit category related products page"
 					class="{clazz} items-center relative flex shrink-0 justify-center gap-1 whitespace-nowrap border-b-4 border-transparent p-2
           {index % 6 == 0 ? 'hover:border-yellow-500' : ''}
@@ -104,7 +74,8 @@ async function getMegaMenu() {
           {index % 6 == 3 && selectedCategory === category.name ? 'border-green-500' : ''}
           {index % 6 == 4 && selectedCategory === category.name ? 'border-pink-500' : ''}
           {index % 6 == 5 && selectedCategory === category.name ? 'border-blue-500' : ''}"
-					on:click="{() => (toggleMenuItemChildren[index] = false)}">
+					on:click={() => (toggleMenuItemChildren[index] = false)}
+				>
 					<!-- Root category -->
 
 					<span>{category.name}</span>
@@ -117,33 +88,37 @@ async function getMegaMenu() {
 							viewBox="0 0 20 20"
 							fill="currentColor"
 							class="h-4 w-4 shrink-0 transition duration-300
-              {selectedCategory === category.name ? 'transform -rotate-180' : ''}">
+              {selectedCategory === category.name ? 'transform -rotate-180' : ''}"
+						>
 							<path
 								fill-rule="evenodd"
 								d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-								clip-rule="evenodd"></path>
+								clip-rule="evenodd"
+							></path>
 						</svg>
 					{/if}
 				</a>
 
 				{#if toggleMenuItemChildren[index] && category.children?.length}
 					<div
-						transition:fade="{{ duration: 100 }}"
-						class="mega-menu relative overflow-hidden border-b bg-white shadow-2xl">
+						transition:fade={{ duration: 100 }}
+						class="mega-menu relative overflow-hidden border-b bg-white shadow-2xl"
+					>
 						<div class="absolute inset-0 z-0 grid w-full grid-cols-4">
 							{#each { length: 4 } as _, ix}
-								<div class="{ix % 2 === 0 ? 'bg-white' : 'bg-zinc-50'}"></div>
+								<div class={ix % 2 === 0 ? 'bg-white' : 'bg-zinc-50'}></div>
 							{/each}
 						</div>
 
 						<ul
-							class="relative z-10 flex max-h-[75vh] min-h-[50vh] flex-col flex-wrap items-start shadow-inner">
+							class="relative z-10 flex max-h-[75vh] min-h-[50vh] flex-col flex-wrap items-start shadow-inner"
+						>
 							<!-- 2nd level child category  -->
 
 							{#each category.children as c}
 								<li class="mb-2 w-1/4 flex-1 shrink-0 grow-0 p-6 pr-2 text-sm">
 									<a
-										href="{navigateToProperPath(c.link || c.slug)}"
+										href={navigateToProperPath(c.link || c.slug)}
 										aria-label="Click to visit category related products page"
 										class="mb-2 block w-full font-semibold
 										{index % 6 == 0 ? 'text-yellow-500 ' : ''}
@@ -152,7 +127,8 @@ async function getMegaMenu() {
                     {index % 6 == 3 ? 'text-green-500 ' : ''}
                     {index % 6 == 4 ? 'text-pink-500 ' : ''}
                     {index % 6 == 5 ? 'text-blue-500 ' : ''}"
-										on:click="{() => (toggleMenuItemChildren[index] = false)}">
+										on:click={() => (toggleMenuItemChildren[index] = false)}
+									>
 										{c.name}
 									</a>
 
@@ -163,10 +139,11 @@ async function getMegaMenu() {
 											{#each c.children as c1, ixx}
 												<li class="w-full">
 													<a
-														href="{navigateToProperPath(c1.link || c1.slug)}"
+														href={navigateToProperPath(c1.link || c1.slug)}
 														aria-label="Click to visit category related products page"
 														class="block w-full font-light hover:font-medium"
-														on:click="{() => (toggleMenuItemChildren[index] = false)}">
+														on:click={() => (toggleMenuItemChildren[index] = false)}
+													>
 														{c1.name}
 													</a>
 												</li>
@@ -190,3 +167,34 @@ async function getMegaMenu() {
 		{/each}
 	</ul>
 {/if}
+
+<style>
+	.mega-menu {
+		visibility: hidden;
+		transition: 0.3s 0.1s; /* delay of 1 seconds on hover off */
+		opacity: 0;
+		left: 0;
+		position: absolute;
+		text-align: left;
+		left: 10%;
+		right: 20%;
+		width: 70%;
+		z-index: 9999;
+	}
+
+	/* #hoverable Class Styles
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+	.hoverable {
+		position: static;
+	}
+
+	.hoverable > a::after {
+		padding-left: 6px;
+		position: relative;
+	}
+
+	.hoverable:hover .mega-menu {
+		visibility: visible;
+		opacity: 1;
+	}
+</style>

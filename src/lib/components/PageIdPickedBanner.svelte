@@ -1,8 +1,8 @@
 <script lang="ts">
-import { LazyImg } from '$lib/components'
-import { navigateToProperPath } from '@misiki/litekart-utils'
+	import { LazyImg } from '$lib/components';
+	import { navigateToProperPath } from '@misiki/litekart-utils';
 
-export let pickedBanners
+	export let pickedBanners;
 </script>
 
 {#if pickedBanners?.length}
@@ -19,14 +19,16 @@ export let pickedBanners
 							{#each b.data as banner}
 								{#if banner.img}
 									<a
-										href="{navigateToProperPath(banner.link || banner.slug)}"
+										href={navigateToProperPath(banner.link || banner.slug)}
 										aria-label="Click to view banner related products page"
-										class="shrink-0">
+										class="shrink-0"
+									>
 										<LazyImg
-											src="{banner.img}"
+											src={banner.img}
 											alt=""
 											width="375"
-											class="w-[47vw] object-contain sm:w-60" />
+											class="w-[47vw] object-contain sm:w-60"
+										/>
 									</a>
 								{/if}
 							{/each}
@@ -37,14 +39,16 @@ export let pickedBanners
 						{#each b.data as banner}
 							{#if banner.img}
 								<a
-									href="{navigateToProperPath(banner.link || banner.slug)}"
+									href={navigateToProperPath(banner.link || banner.slug)}
 									aria-label="Click to view banner related products page"
-									class="col-span-1">
+									class="col-span-1"
+								>
 									<LazyImg
-										src="{banner.img}"
+										src={banner.img}
 										alt=""
 										width="375"
-										class="h-full w-full object-contain" />
+										class="h-full w-full object-contain"
+									/>
 								</a>
 							{/if}
 						{/each}

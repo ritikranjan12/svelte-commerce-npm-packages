@@ -1,73 +1,73 @@
 <script lang="ts">
-import { browser } from '$app/environment'
-import { CartService } from '$lib/services'
-import { cartStore, updateCartStore } from '$lib/store/cart'
-import { createEventDispatcher, onMount } from 'svelte'
-import { currency, toast } from '@misiki/litekart-utils'
-import { goto } from '$app/navigation'
-import { page } from '$app/stores'
-import { PrimaryButton } from '$lib/ui'
-// import { storeStore } from '$lib/store/store'
-import { services } from '@misiki/litekart-utils'
+	import { browser } from '$app/environment';
+	import { CartService } from '$lib/services';
+	import { cartStore, updateCartStore } from '$lib/store/cart';
+	import { createEventDispatcher, onMount } from 'svelte';
+	import { currency, toast } from '@misiki/litekart-utils';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { PrimaryButton } from '$lib/ui';
+	// import { storeStore } from '$lib/store/store'
+	import { services } from '@misiki/litekart-utils';
 
-const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher();
 
-export let checkedCartItems = []
-export let disabled = false
-export let hideCheckoutButton = false
-export let loading = false
-export let nextpage = null
-export let showNextIcon = false
-export let text = 'Proceed to checkout'
+	export let checkedCartItems = [];
+	export let disabled = false;
+	export let hideCheckoutButton = false;
+	export let loading = false;
+	export let nextpage = null;
+	export let showNextIcon = false;
+	export let text = 'Proceed to checkout';
 
-$: cart = {}
-$: store = $page.data?.store
+	$: cart = {};
+	$: store = $page.data?.store;
 
-onMount(() => {
-	cartStore.subscribe((value) => {
-		cart = value
-	})
-})
+	onMount(() => {
+		cartStore.subscribe((value) => {
+			cart = value;
+		});
+	});
 
-// console.log('checkedCartItems', checkedCartItems)
+	// console.log('checkedCartItems', checkedCartItems)
 
-function modulo(n, m) {
-	// handle negative numbers
-	return ((n % m) + m) % m
-}
+	function modulo(n, m) {
+		// handle negative numbers
+		return ((n % m) + m) % m;
+	}
 
-async function submit() {
-	if (text === 'Select Address') {
-		if (checkedCartItems?.length) {
-			try {
-				const res = await services.CartService.updateCart2({
-					cartId: cart?.cart_id || cart?.cartId || $page.data?.cartId,
-					selected_products_for_checkout: checkedCartItems,
-					origin: $page.data?.origin,
-					storeId: $page?.data?.storeId
-				})
+	async function submit() {
+		if (text === 'Select Address') {
+			if (checkedCartItems?.length) {
+				try {
+					const res = await services.CartService.updateCart2({
+						cartId: cart?.cart_id || cart?.cartId || $page.data?.cartId,
+						selected_products_for_checkout: checkedCartItems,
+						origin: $page.data?.origin,
+						storeId: $page?.data?.storeId
+					});
 
-				updateCartStore({ data: res })
+					updateCartStore({ data: res });
 
-				if (nextpage) {
-					goto(nextpage)
-				} else {
-					dispatch('submit')
+					if (nextpage) {
+						goto(nextpage);
+					} else {
+						dispatch('submit');
+					}
+				} catch (e) {
+					console.error(e);
 				}
-			} catch (e) {
-				console.error(e)
+			} else {
+				toast('Select at least one item in bag to place order', 'info');
 			}
 		} else {
-			toast('Select at least one item in bag to place order', 'info')
-		}
-	} else {
-		if (nextpage) {
-			goto(nextpage)
-		} else {
-			dispatch('submit')
+			if (nextpage) {
+				goto(nextpage);
+			} else {
+				dispatch('submit');
+			}
 		}
 	}
-}
 </script>
 
 {#if cart}
@@ -162,7 +162,8 @@ async function submit() {
 				<span>
 					{#if cart?.formattedAmount?.shipping?.value < 1 || cart?.shipping?.charge < 1}
 						<span
-							class="border border-accent-500 text-accent-500 uppercase px-1.5 py-0.5 rounded text-xs">
+							class="border border-accent-500 text-accent-500 uppercase px-1.5 py-0.5 rounded text-xs"
+						>
 							Free
 						</span>
 					{:else}
@@ -213,10 +214,11 @@ async function submit() {
 						roundedNone
 						type="submit"
 						class="group w-full uppercase"
-						clickEffect="{false}"
+						clickEffect={false}
 						{loading}
 						{disabled}
-						on:click="{submit}">
+						on:click={submit}
+					>
 						<span>{text}</span>
 
 						{#if showNextIcon}
@@ -224,11 +226,13 @@ async function submit() {
 								xmlns="http://www.w3.org/2000/svg"
 								class="h-5 w-5 transform transition duration-700 group-hover:translate-x-2"
 								viewBox="0 0 20 20"
-								fill="currentColor">
+								fill="currentColor"
+							>
 								<path
 									fill-rule="evenodd"
 									d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-									clip-rule="evenodd"></path>
+									clip-rule="evenodd"
+								></path>
 							</svg>
 						{/if}
 					</PrimaryButton>
@@ -241,10 +245,11 @@ async function submit() {
 						roundedNone
 						type="submit"
 						class="group w-full uppercase h-14"
-						clickEffect="{false}"
+						clickEffect={false}
 						{loading}
 						{disabled}
-						on:click="{submit}">
+						on:click={submit}
+					>
 						<span>{text}</span>
 
 						{#if showNextIcon}
@@ -252,11 +257,13 @@ async function submit() {
 								xmlns="http://www.w3.org/2000/svg"
 								class="h-5 w-5 transform transition duration-700 group-hover:translate-x-2"
 								viewBox="0 0 20 20"
-								fill="currentColor">
+								fill="currentColor"
+							>
 								<path
 									fill-rule="evenodd"
 									d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-									clip-rule="evenodd"></path>
+									clip-rule="evenodd"
+								></path>
 							</svg>
 						{/if}
 					</PrimaryButton>

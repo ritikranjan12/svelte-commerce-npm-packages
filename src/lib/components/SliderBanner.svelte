@@ -1,61 +1,52 @@
-<style>
-.frosted-black {
-	backdrop-filter: blur(5px);
-	background-color: hsla(0, 0%, 0%, 0.8);
-}
-.frosted-blur {
-	backdrop-filter: blur(12px);
-}
-</style>
-
 <script lang="ts">
-import { createEventDispatcher } from 'svelte'
-import { fly } from 'svelte/transition'
-import { Gallery, LazyImg, RatingStarDisplayBig } from '$lib/components'
-import { navigateToProperPath } from '@misiki/litekart-utils'
-import { onMount } from 'svelte'
-import { SplideSlide } from '@splidejs/svelte-splide'
-import dayjs from 'dayjs'
-import seamlessBusinessPatternBackground from '$lib/assets/seamless-business-pattern-background.png'
+	import { createEventDispatcher } from 'svelte';
+	import { fly } from 'svelte/transition';
+	import { Gallery, LazyImg, RatingStarDisplayBig } from '$lib/components';
+	import { navigateToProperPath } from '@misiki/litekart-utils';
+	import { onMount } from 'svelte';
+	import { SplideSlide } from '@splidejs/svelte-splide';
+	import dayjs from 'dayjs';
+	import seamlessBusinessPatternBackground from '$lib/assets/seamless-business-pattern-background.png';
 
-const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher();
 
-export let breadCrumb
-export let data = { banners: [] }
-export let isClaimed = false
-export let needClaim = false
-export let rating
-export let ratingCount
-export let reviewCount
-export let showBookButton = false
-export let showFlight = false
-export let showGallery = false
-export let showOneBanner = false
+	export let breadCrumb;
+	export let data = { banners: [] };
+	export let isClaimed = false;
+	export let needClaim = false;
+	export let rating;
+	export let ratingCount;
+	export let reviewCount;
+	export let showBookButton = false;
+	export let showFlight = false;
+	export let showGallery = false;
+	export let showOneBanner = false;
 
-let selectedImg
-let showPhotosModal = false
-let Splide: any
+	let selectedImg;
+	let showPhotosModal = false;
+	let Splide: any;
 
-if (!data.banners.length) data.banners = ['/icon.png']
-$: if (data?.banners[0].img) {
-	selectedImg = data?.banners[0].img
-} else if (data?.banners[0]) {
-	selectedImg = data?.banners[0]
-}
+	if (!data.banners.length) data.banners = ['/icon.png'];
+	$: if (data?.banners[0].img) {
+		selectedImg = data?.banners[0].img;
+	} else if (data?.banners[0]) {
+		selectedImg = data?.banners[0];
+	}
 
-onMount(async () => {
-	const SplideModule = await import('$lib/components/SplideJs.svelte')
-	Splide = SplideModule.default
-})
+	onMount(async () => {
+		const SplideModule = await import('$lib/components/SplideJs.svelte');
+		Splide = SplideModule.default;
+	});
 </script>
 
 <div
 	class="relative z-0 h-96 max-h-max w-full bg-cover bg-center"
-	style="background-image: url({seamlessBusinessPatternBackground})">
+	style="background-image: url({seamlessBusinessPatternBackground})"
+>
 	{#if data?.banners?.length > 1}
 		<svelte:component
-			this="{Splide}"
-			options="{{
+			this={Splide}
+			options={{
 				lazyLoad: true,
 				pagination: false,
 				perMove: 1,
@@ -79,35 +70,39 @@ onMount(async () => {
 						perPage: 1
 					}
 				}
-			}}">
+			}}
+		>
 			{#each data?.banners as b}
 				{#if b}
 					<SplideSlide>
 						<LazyImg
-							src="{b}"
+							src={b}
 							alt=" "
 							height="384"
 							width="384"
-							class="h-96 w-full object-cover object-center" />
+							class="h-96 w-full object-cover object-center"
+						/>
 					</SplideSlide>
 				{/if}
 			{/each}
 		</svelte:component>
 	{:else if data?.banners?.length == 1}
 		<LazyImg
-			src="{data?.banners[0]}"
+			src={data?.banners[0]}
 			alt=" "
 			height="384"
 			width="1536"
 			aspect_ratio="4:1"
-			class="h-96 w-full object-cover object-center" />
+			class="h-96 w-full object-cover object-center"
+		/>
 	{/if}
 
 	<div class="absolute inset-0 z-10 flex items-end bg-gradient-to-t from-black p-3 py-5 sm:p-10">
 		<div class="container mx-auto flex h-full max-h-max max-w-6xl flex-col justify-between gap-5">
 			{#if breadCrumb && breadCrumb.length}
 				<div
-					class="flex items-center gap-1 overflow-x-auto whitespace-nowrap text-sm font-medium text-white scrollbar-none">
+					class="flex items-center gap-1 overflow-x-auto whitespace-nowrap text-sm font-medium text-white scrollbar-none"
+				>
 					<a href="/" class="cursor-pointer hover:underline">Home</a>
 
 					<svg
@@ -116,15 +111,17 @@ onMount(async () => {
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
-						stroke-width="2">
+						stroke-width="2"
+					>
 						<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
 					</svg>
 
 					{#each breadCrumb as bc, ix}
 						{#if ix < breadCrumb.length - 1}
 							<a
-								href="{navigateToProperPath(bc.link || bc.slug)}"
-								class="cursor-pointer hover:underline">{bc.name}</a>
+								href={navigateToProperPath(bc.link || bc.slug)}
+								class="cursor-pointer hover:underline">{bc.name}</a
+							>
 						{:else}
 							<span class="text-primary-500">{bc.name}</span>
 						{/if}
@@ -136,7 +133,8 @@ onMount(async () => {
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
-								stroke-width="2">
+								stroke-width="2"
+							>
 								<path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
 							</svg>
 						{/if}
@@ -151,11 +149,12 @@ onMount(async () => {
 					{#if data.img}
 						<div class="flex-shrink-0">
 							<LazyImg
-								src="{data.img}"
+								src={data.img}
 								alt="profile"
 								height="64"
 								width="64"
-								class="h-16 w-16 rounded-full border border-gray-300 bg-white object-cover shadow-md sm:h-24 sm:w-24" />
+								class="h-16 w-16 rounded-full border border-gray-300 bg-white object-cover shadow-md sm:h-24 sm:w-24"
+							/>
 						</div>
 					{/if}
 
@@ -178,11 +177,13 @@ onMount(async () => {
 									viewBox="0 0 24 24"
 									stroke-width="1.5"
 									stroke="currentColor"
-									class="w-5 h-5">
+									class="w-5 h-5"
+								>
 									<path
 										stroke-linecap="round"
 										stroke-linejoin="round"
-										d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"></path>
+										d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+									></path>
 									<path
 										stroke-linecap="round"
 										stroke-linejoin="round"
@@ -285,11 +286,13 @@ onMount(async () => {
 												xmlns="http://www.w3.org/2000/svg"
 												class="h-5 w-5"
 												viewBox="0 0 20 20"
-												fill="currentColor">
+												fill="currentColor"
+											>
 												<path
 													fill-rule="evenodd"
 													d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-													clip-rule="evenodd"></path>
+													clip-rule="evenodd"
+												></path>
 											</svg>
 
 											<span>Claimed</span>
@@ -298,7 +301,8 @@ onMount(async () => {
 										<button
 											type="button"
 											class="flex items-centeter gap-1 hover:underline focus:outline-none"
-											on:click="{() => dispatch('scrollToClaim')}">
+											on:click={() => dispatch('scrollToClaim')}
+										>
 											<span> Claim the business </span>
 
 											<svg
@@ -307,11 +311,13 @@ onMount(async () => {
 												viewBox="0 0 24 24"
 												stroke-width="1.5"
 												stroke="currentColor"
-												class="w-6 h-6">
+												class="w-6 h-6"
+											>
 												<path
 													stroke-linecap="round"
 													stroke-linejoin="round"
-													d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"></path>
+													d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+												></path>
 											</svg>
 										</button>
 									{/if}
@@ -327,7 +333,8 @@ onMount(async () => {
 							<button
 								type="button"
 								class="whitespace-nowrap rounded-md border-2 border-white py-2 px-4 font-semibold tracking-wide text-white transition duration-700 hover:border-green-500 hover:text-green-500 focus:outline-none sm:py-3 sm:px-6"
-								on:click="{() => (showPhotosModal = true)}">
+								on:click={() => (showPhotosModal = true)}
+							>
 								See {#if data?.banners?.length > 1}
 									Photos
 								{:else}
@@ -340,7 +347,8 @@ onMount(async () => {
 							<button
 								type="button"
 								class="whitespace-nowrap rounded-md border-2 border-white py-2 px-4 font-semibold tracking-wide text-white transition duration-700 hover:border-green-500 hover:text-green-500 focus:outline-none sm:py-3 sm:px-6"
-								on:click="{() => dispatch('book')}">
+								on:click={() => dispatch('book')}
+							>
 								Book
 							</button>
 						{/if}
@@ -351,7 +359,7 @@ onMount(async () => {
 	</div>
 </div>
 
-<Gallery bind:showPhotosModal images="{data.banners}" title="{data?.businessName}" />
+<Gallery bind:showPhotosModal images={data.banners} title={data?.businessName} />
 
 <!-- {#if showPhotosModal}
 	<div
@@ -431,3 +439,13 @@ onMount(async () => {
 		</div>
 	</div>
 {/if} -->
+
+<style>
+	.frosted-black {
+		backdrop-filter: blur(5px);
+		background-color: hsla(0, 0%, 0%, 0.8);
+	}
+	.frosted-blur {
+		backdrop-filter: blur(12px);
+	}
+</style>

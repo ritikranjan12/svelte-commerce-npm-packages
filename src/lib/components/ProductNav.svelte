@@ -1,37 +1,30 @@
-<style>
-.frosted-white {
-	backdrop-filter: blur(5px);
-	background-color: hsla(0, 0%, 100%, 0.35);
-}
-</style>
-
 <script lang="ts">
-import { page } from '$app/stores'
-import AutosuggestModal from './AutosuggestModal.svelte'
-import { goback } from '@misiki/litekart-utils'
-import { cartStore } from '$lib/store/cart'
-import { browser } from '$app/environment'
-import { onMount } from 'svelte'
+	import { page } from '$app/stores';
+	import AutosuggestModal from './AutosuggestModal.svelte';
+	import { goback } from '@misiki/litekart-utils';
+	import { cartStore } from '$lib/store/cart';
+	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
-export let data
-export let me
-export let openSidebar: boolean
-export let productName: string
-export let showCartSidebar: boolean
-export let store = {}
-export let url: string
+	export let data;
+	export let me;
+	export let openSidebar: boolean;
+	export let productName: string;
+	export let showCartSidebar: boolean;
+	export let store = {};
+	export let url: string;
 
-$: scrollY = 0
-$: cart = {}
+	$: scrollY = 0;
+	$: cart = {};
 
-let show = false
-onMount(() => {
-	if (browser) {
-		cartStore.subscribe((value) => {
-			cart = value
-		})
-	}
-})
+	let show = false;
+	onMount(() => {
+		if (browser) {
+			cartStore.subscribe((value) => {
+				cart = value;
+			});
+		}
+	});
 </script>
 
 <svelte:window bind:scrollY />
@@ -39,7 +32,8 @@ onMount(() => {
 <nav
 	class="minimum-width-rem fixed inset-x-0 top-0 flex h-14 w-full items-center justify-center px-3 sm:h-20 sm:px-10 lg:hidden
 	{showCartSidebar ? 'z-50 ' : 'z-40'}"
-	style="background-color: rgba(255, 255, 255, {scrollY < 500 ? scrollY / 500 : 1});">
+	style="background-color: rgba(255, 255, 255, {scrollY < 500 ? scrollY / 500 : 1});"
+>
 	<div class="flex items-center justify-between gap-4 w-full">
 		<div class="flex items-center gap-4">
 			<!-- Back button -->
@@ -48,14 +42,16 @@ onMount(() => {
 				<button
 					type="button"
 					class="h-8 w-8 shrink-0 flex items-center justify-center frosted-white rounded-full focus:outline-none"
-					on:click="{goback}">
+					on:click={goback}
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke-width="1.5"
 						stroke="currentColor"
-						class="w-6 h-6">
+						class="w-6 h-6"
+					>
 						<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5"
 						></path>
 					</svg>
@@ -73,18 +69,21 @@ onMount(() => {
 			<button
 				type="button"
 				class="h-8 w-8 flex items-center justify-center frosted-white rounded-full focus:outline-none"
-				on:click="{() => (show = true)}">
+				on:click={() => (show = true)}
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					viewBox="0 0 24 24"
 					stroke-width="1.5"
 					stroke="currentColor"
-					class="w-6 h-6">
+					class="w-6 h-6"
+				>
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
-						d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
+						d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+					></path>
 				</svg>
 			</button>
 
@@ -98,14 +97,16 @@ onMount(() => {
 				href="/my/wishlist"
 				aria-label="Click to visit wishlist"
 				class="h-8 w-8 flex items-center justify-center frosted-white rounded-full focus:outline-none"
-				data-sveltekit-preload-data>
+				data-sveltekit-preload-data
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					viewBox="0 0 24 24"
 					stroke-width="1.5"
 					stroke="currentColor"
-					class="w-6 h-6">
+					class="w-6 h-6"
+				>
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -120,14 +121,16 @@ onMount(() => {
 				href="/cart"
 				aria-label="Click to visit cart"
 				class="h-8 w-8 relative flex items-center justify-center frosted-white rounded-full focus:outline-none"
-				data-sveltekit-preload-data>
+				data-sveltekit-preload-data
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
 					viewBox="0 0 24 24"
 					stroke-width="1.5"
 					stroke="currentColor"
-					class="w-6 h-6">
+					class="w-6 h-6"
+				>
 					<path
 						stroke-linecap="round"
 						stroke-linejoin="round"
@@ -137,7 +140,8 @@ onMount(() => {
 
 				{#if cart?.qty > 0}
 					<div
-						class="absolute -top-1 -right-1 flex items-center justify-center rounded-full bg-primary-500 py-[0.8px] px-[5px] text-center text-xs font-bold uppercase text-white">
+						class="absolute -top-1 -right-1 flex items-center justify-center rounded-full bg-primary-500 py-[0.8px] px-[5px] text-center text-xs font-bold uppercase text-white"
+					>
 						{cart.qty}
 					</div>
 				{/if}
@@ -145,3 +149,10 @@ onMount(() => {
 		</div>
 	</div>
 </nav>
+
+<style>
+	.frosted-white {
+		backdrop-filter: blur(5px);
+		background-color: hsla(0, 0%, 100%, 0.35);
+	}
+</style>

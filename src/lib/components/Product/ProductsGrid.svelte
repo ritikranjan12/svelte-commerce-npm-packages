@@ -1,8 +1,8 @@
 <script lang="ts">
-import { DummyProductCard, ProductCard } from '$lib/components'
+	import { DummyProductCard, ProductCard } from '$lib/components';
 
-export let title = 'Recommended Products'
-export let products = []
+	export let title = 'Recommended Products';
+	export let products = [];
 </script>
 
 {#if products}
@@ -14,9 +14,10 @@ export let products = []
 		</div>
 
 		<div
-			class="mb-5 grid w-full grid-cols-2 items-start gap-3 sm:mb-10 sm:flex sm:flex-wrap sm:justify-between lg:gap-6">
+			class="mb-5 grid w-full grid-cols-2 items-start gap-3 sm:mb-10 sm:flex sm:flex-wrap sm:justify-between lg:gap-6"
+		>
 			{#each products as p, px}
-				<ProductCard product="{p}" />
+				<ProductCard product={p} />
 			{/each}
 
 			{#each { length: 7 } as _}

@@ -1,59 +1,59 @@
 <script>
-import { onMount, onDestroy } from 'svelte'
-import { readable } from 'svelte/store'
+	import { onMount, onDestroy } from 'svelte';
+	import { readable } from 'svelte/store';
 
-export let startTimeISO
-export let endTimeISO
+	export let startTimeISO;
+	export let endTimeISO;
 
-let countdownStore
+	let countdownStore;
 
-const calculateTimeLeft = () => {
-	const now = new Date()
-	const startTime = new Date(startTimeISO)
-	const endTime = new Date(endTimeISO)
+	const calculateTimeLeft = () => {
+		const now = new Date();
+		const startTime = new Date(startTimeISO);
+		const endTime = new Date(endTimeISO);
 
-	let timeLeft = {}
+		let timeLeft = {};
 
-	if (now < startTime) {
-		timeLeft = calculateTimeDifference(now, startTime)
-	} else if (now >= startTime && now <= endTime) {
-		timeLeft = calculateTimeDifference(now, endTime)
-	} else {
-		timeLeft = null
-	}
-
-	return timeLeft
-}
-
-const calculateTimeDifference = (start, end) => {
-	const difference = end - start
-	const days = Math.floor(difference / (1000 * 60 * 60 * 24))
-	const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-	const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
-	const seconds = Math.floor((difference % (1000 * 60)) / 1000)
-
-	return { days, hours, minutes, seconds }
-}
-
-onMount(() => {
-	countdownStore = readable(calculateTimeLeft(), (set) => {
-		const intervalId = setInterval(() => {
-			const timeLeft = calculateTimeLeft()
-			if (timeLeft === null) {
-				clearInterval(intervalId)
-			}
-			set(timeLeft)
-		}, 1000)
-
-		return () => {
-			clearInterval(intervalId)
+		if (now < startTime) {
+			timeLeft = calculateTimeDifference(now, startTime);
+		} else if (now >= startTime && now <= endTime) {
+			timeLeft = calculateTimeDifference(now, endTime);
+		} else {
+			timeLeft = null;
 		}
-	})
-})
 
-onDestroy(() => {
-	countdownStore = null
-})
+		return timeLeft;
+	};
+
+	const calculateTimeDifference = (start, end) => {
+		const difference = end - start;
+		const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+		const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+		const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+		return { days, hours, minutes, seconds };
+	};
+
+	onMount(() => {
+		countdownStore = readable(calculateTimeLeft(), (set) => {
+			const intervalId = setInterval(() => {
+				const timeLeft = calculateTimeLeft();
+				if (timeLeft === null) {
+					clearInterval(intervalId);
+				}
+				set(timeLeft);
+			}, 1000);
+
+			return () => {
+				clearInterval(intervalId);
+			};
+		});
+	});
+
+	onDestroy(() => {
+		countdownStore = null;
+	});
 </script>
 
 {#if $countdownStore !== null}

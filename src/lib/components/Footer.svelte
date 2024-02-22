@@ -1,6 +1,6 @@
 <script>
 	import { navigateToProperPath } from '@misiki/litekart-utils';
-	
+
 	export let data = {};
 
 	let popularSearches = data.popularSearches || {};
@@ -614,4 +614,4 @@
 		background-size: 100% 1px;
 		background-position: 0 100%;
 	}
-</script>
+</style>

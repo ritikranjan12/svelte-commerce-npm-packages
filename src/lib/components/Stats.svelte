@@ -1,7 +1,7 @@
 <script lang="ts">
-import { LazyImg } from '$lib/components'
+	import { LazyImg } from '$lib/components';
 
-export let students, tests, schools, results
+	export let students, tests, schools, results;
 </script>
 
 <div class="mb-4 grid grid-cols-1 shadow lg:grid-cols-3">
@@ -29,8 +29,9 @@ export let students, tests, schools, results
 					stroke-linecap="round"
 					stroke-linejoin="round"
 					stroke-width="2"
-					d="M13 10V3L4 14h7v7l9-11h-7z"></path
-				></svg>
+					d="M13 10V3L4 14h7v7l9-11h-7z"
+				></path></svg
+			>
 		</div>
 		<div class="stat-title">Published Results</div>
 		<div class="text-secondary stat-value">{results?.length}</div>
@@ -62,8 +63,9 @@ export let students, tests, schools, results
 						stroke-linecap="round"
 						stroke-linejoin="round"
 						stroke-width="2"
-						d="M13 10V3L4 14h7v7l9-11h-7z"></path
-					></svg>
+						d="M13 10V3L4 14h7v7l9-11h-7z"
+					></path></svg
+				>
 			</div>
 			<!-- <div class="stat-figure text-secondary">
         <div class="avatar online">
