@@ -1,24 +1,24 @@
 <script>
-	import { goto } from "$app/navigation";
+	import { goto } from '$app/navigation';
 
 	/**
 	 * @type {any}
 	 */
-	 export let clazz;
+	export let clazz;
 	/**
 	 * @type {any}
 	 */
-	 export let whiteText;
+	export let whiteText;
 	/**
 	 * @type {any}
 	 */
-	 export let to;
+	export let to;
 
-	 function go() {
+	function go() {
 		if (to) {
-			goto(to)
+			goto(to);
 		} else {
-			goto(history.back() || '/')
+			goto(history.back() || '/');
 		}
 	}
 </script>
@@ -27,13 +27,15 @@
 	<button
 		class="flex max-w-max transform items-center transition duration-300 hover:-translate-x-1 focus:outline-none
 		{whiteText ? 'text-zinc-200 hover:text-white' : 'text-zinc-800 hover:text-primary-500'}"
-		on:click="{go}">
+		on:click={go}
+	>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			class="h-5 w-5"
 			fill="none"
 			viewBox="0 0 24 24"
-			stroke="currentColor">
+			stroke="currentColor"
+		>
 			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"
 			></path>
 		</svg>

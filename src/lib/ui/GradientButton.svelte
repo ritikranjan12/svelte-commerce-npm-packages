@@ -1,50 +1,37 @@
-<style>
-.gradient {
-	display: flex;
-	background: linear-gradient(120deg, #112d4e, #1a6b1a, #112d4e, #1a6b1a, #112d4e);
-	background-size: 300%;
-	transition: 0.8s;
-}
-
-.gradient:hover {
-	background-position: right;
-}
-</style>
-
 <script>
-import { createEventDispatcher } from 'svelte'
+	import { createEventDispatcher } from 'svelte';
 
-const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher();
 
-export let loading = false,
-	loadingringsize = 'base',
-	disabled = false,
-	className,
-	roundedFull = false,
-	type = 'button',
-	title = ''
+	export let className;
+	export let disabled = false;
+	export let loading = false;
+	export let loadingringsize = 'base';
+	export let roundedFull = false;
+	export let title = '';
+	export let type = 'button';
 
-// creates a `class` property, even
-// though it is a reserved word
+	// creates a `class` property, even
+	// though it is a reserved word
 
-export { className as class }
+	export { className as class };
 
-let localLoadingPeriod = false
+	let localLoadingPeriod = false;
 
-function handleClick() {
-	dispatch('click')
-	handleLoading()
-}
-
-function handleLoading() {
-	if (loading === false) {
-		localLoadingPeriod = true
-
-		setTimeout(() => {
-			localLoadingPeriod = false
-		}, 2000)
+	function handleClick() {
+		dispatch('click');
+		handleLoading();
 	}
-}
+
+	function handleLoading() {
+		if (loading === false) {
+			localLoadingPeriod = true;
+
+			setTimeout(() => {
+				localLoadingPeriod = false;
+			}, 2000);
+		}
+	}
 </script>
 
 <button
@@ -55,14 +42,16 @@ function handleLoading() {
 	{disabled ? 'bg-zinc-400 cursor-not-allowed' : 'gradient active:scale-95'}
     {roundedFull ? 'rounded-full' : 'rounded'}
 	{className}"
-	on:click="{handleClick}">
+	on:click={handleClick}
+>
 	<div class="flex items-center justify-center gap-1">
 		<slot />
 	</div>
 
 	{#if loading || localLoadingPeriod}
 		<div
-			class="absolute inset-0 flex cursor-not-allowed items-center justify-center bg-black bg-opacity-70">
+			class="absolute inset-0 flex cursor-not-allowed items-center justify-center bg-black bg-opacity-70"
+		>
 			<svg
 				class="mx-auto animate-spin text-white
 				{loadingringsize == 'xs' ? 'w-4 h-4' : ''}
@@ -71,7 +60,8 @@ function handleLoading() {
 				{loadingringsize == 'lg' ? 'h-7 w-7' : ''}"
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
-				viewBox="0 0 24 24">
+				viewBox="0 0 24 24"
+			>
 				<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
 				></circle>
 				<path
@@ -83,3 +73,16 @@ function handleLoading() {
 		</div>
 	{/if}
 </button>
+
+<style>
+	.gradient {
+		display: flex;
+		background: linear-gradient(120deg, #112d4e, #1a6b1a, #112d4e, #1a6b1a, #112d4e);
+		background-size: 300%;
+		transition: 0.8s;
+	}
+
+	.gradient:hover {
+		background-position: right;
+	}
+</style>

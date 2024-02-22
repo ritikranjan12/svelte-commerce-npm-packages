@@ -1,22 +1,22 @@
 <script>
-import { createEventDispatcher } from 'svelte'
+	import { createEventDispatcher } from 'svelte';
 
-const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher();
 
-let clazz = ''
-export { clazz as class }
+	let clazz = '';
+	export { clazz as class };
 
-export let autoFocus = false
-export let cols = 30
-export let disabled = false
-export let error = false
-export let id = ''
-export let name = ''
-export let placeholder = ' '
-export let required = false
-export let rows = 4
-export let success = false
-export let value = ''
+	export let autoFocus = false;
+	export let cols = 30;
+	export let disabled = false;
+	export let error = false;
+	export let id = '';
+	export let name = '';
+	export let placeholder = ' ';
+	export let required = false;
+	export let rows = 4;
+	export let success = false;
+	export let value = '';
 </script>
 
 <textarea
@@ -32,5 +32,6 @@ export let value = ''
 	{disabled ? 'cursor-not-allowed bg-zinc-100' : 'bg-transparent hover:bg-zinc-50'}
 	{success ? 'border-green-500 focus:border-green-500 bg-green-100 focus:ring-green-500' : ''}
 	{error ? 'border-red-500 focus:border-red-500 bg-red-100 focus:ring-red-500' : ''}"
-	aria-label="{placeholder}"
-	on:input="{() => dispatch('input')}"></textarea>
+	aria-label={placeholder}
+	on:input={() => dispatch('input')}
+></textarea>

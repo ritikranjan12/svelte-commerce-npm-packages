@@ -1,17 +1,17 @@
 <script>
-import { createEventDispatcher } from 'svelte'
-import { nanoid } from 'nanoid'
+	import { createEventDispatcher } from 'svelte';
+	import { nanoid } from 'nanoid';
 
-const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher();
 
-export let disabled = false
-export let items = []
-export let name = ''
-export let required = false
-export let selectedItems = []
+	export let disabled = false;
+	export let items = [];
+	export let name = '';
+	export let required = false;
+	export let selectedItems = [];
 
-// console.log('items', items)
-// console.log('selectedItems', selectedItems)
+	// console.log('items', items)
+	// console.log('selectedItems', selectedItems)
 </script>
 
 <ul class="flex flex-wrap gap-x-4 gap-y-2 items-center">
@@ -21,13 +21,15 @@ export let selectedItems = []
 				<input
 					type="checkbox"
 					{name}
-					id="{nanoid()}"
+					id={nanoid()}
 					{disabled}
 					{required}
-					bind:group="{selectedItems}"
-					value="{i._id}"
-					on:change="{() => dispatch('change', selectedItems)}"
-					class="mt-0.5 h-4 w-4 shrink-0 text-primary-500 focus:ring-0 focus:ring-offset-0" />
+					bind:group={selectedItems}
+					value={i._id}
+					on:change={() => dispatch('change', selectedItems)}
+					class="mt-0.5 h-4 w-4 shrink-0 text-primary-500 focus:ring-0 focus:ring-offset-0"
+				/>
+
 				<span class="max-w-max text-sm">
 					{i.name}
 				</span>

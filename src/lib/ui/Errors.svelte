@@ -1,5 +1,5 @@
 <script>
-export let errors
+	export let errors;
 </script>
 
 <div class="mb-4 text-sm text-red-600">

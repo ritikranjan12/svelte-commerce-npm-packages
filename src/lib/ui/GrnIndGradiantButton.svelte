@@ -1,47 +1,35 @@
-<style>
-.gradient {
-	display: flex;
-	background: linear-gradient(120deg, #10b981, #6366f1, #10b981, #6366f1, #10b981);
-	background-size: 300%;
-	transition: 0.8s;
-}
-.gradient:hover {
-	background-position: right;
-}
-</style>
-
 <script>
-import { createEventDispatcher } from 'svelte'
+	import { createEventDispatcher } from 'svelte';
 
-export let loading = false,
-	disabled = false,
-	loadingringsize = 'base',
-	rounded = false,
-	type = 'button',
-	title = ''
+	export let disabled = false;
+	export let loading = false;
+	export let loadingringsize = 'base';
+	export let rounded = false;
+	export let title = '';
+	export let type = 'button';
 
-let clazz
+	let clazz;
 
-export { clazz as class }
+	export { clazz as class };
 
-const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher();
 
-let localLoadingPeriod = false
+	let localLoadingPeriod = false;
 
-function handleClick() {
-	dispatch('click')
-	handleLoading()
-}
-
-function handleLoading() {
-	if (loading === false) {
-		localLoadingPeriod = true
-
-		setTimeout(() => {
-			localLoadingPeriod = false
-		}, 2000)
+	function handleClick() {
+		dispatch('click');
+		handleLoading();
 	}
-}
+
+	function handleLoading() {
+		if (loading === false) {
+			localLoadingPeriod = true;
+
+			setTimeout(() => {
+				localLoadingPeriod = false;
+			}, 2000);
+		}
+	}
 </script>
 
 <button
@@ -51,7 +39,8 @@ function handleLoading() {
 	class="{clazz} relative transform items-center justify-center bg-white px-4 py-2 text-center font-semibold tracking-wider text-white shadow-md transition duration-700 focus:outline-none focus:ring-0 focus:ring-offset-0 hover:shadow active:scale-95
     {disabled ? 'bg-zinc-400 cursor-not-allowed' : 'gradient'}
     {rounded ? 'rounded-full ' : 'rounded'}"
-	on:click="{handleClick}">
+	on:click={handleClick}
+>
 	<div class="flex items-center justify-center gap-1">
 		<slot />
 	</div>
@@ -59,7 +48,8 @@ function handleLoading() {
 	{#if loading || localLoadingPeriod}
 		<div
 			class="absolute inset-0 flex cursor-not-allowed items-center justify-center bg-black bg-opacity-70
-        	{rounded ? 'rounded-full' : 'rounded'}">
+        	{rounded ? 'rounded-full' : 'rounded'}"
+		>
 			<svg
 				class="animate-spin text-white
 				{loadingringsize == 'xs' ? 'w-4 h-4' : ''}
@@ -68,7 +58,8 @@ function handleLoading() {
 				{loadingringsize == 'lg' ? 'h-7 w-7' : ''}"
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
-				viewBox="0 0 24 24">
+				viewBox="0 0 24 24"
+			>
 				<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
 				</circle>
 				<path
@@ -80,3 +71,15 @@ function handleLoading() {
 		</div>
 	{/if}
 </button>
+
+<style>
+	.gradient {
+		display: flex;
+		background: linear-gradient(120deg, #10b981, #6366f1, #10b981, #6366f1, #10b981);
+		background-size: 300%;
+		transition: 0.8s;
+	}
+	.gradient:hover {
+		background-position: right;
+	}
+</style>

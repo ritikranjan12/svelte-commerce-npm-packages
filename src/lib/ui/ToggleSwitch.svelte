@@ -1,88 +1,60 @@
-<style>
-input:checked ~ .dot {
-	transform: translateX(100%);
-}
-input:checked ~ .green {
-	@apply bg-green-500;
-}
-input:checked ~ .blue {
-	@apply bg-blue-500;
-}
-input:checked ~ .red {
-	@apply bg-red-500;
-}
-input:checked ~ .yellow {
-	@apply bg-yellow-500;
-}
-input:checked ~ .indigo {
-	@apply bg-indigo-500;
-}
-input:checked ~ .pink {
-	@apply bg-pink-500;
-}
-input:checked ~ .purple {
-	@apply bg-purple-500;
-}
-input:checked ~ .black {
-	@apply bg-zinc-800;
-}
-</style>
-
 <script>
-import { onMount } from 'svelte'
-import { createEventDispatcher } from 'svelte'
+	import { onMount } from 'svelte';
+	import { createEventDispatcher } from 'svelte';
 
-const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher();
 
-export let id = ''
-export let color = 'green'
-export let checked = false
-export let name = ''
-export let required = false
-export let disabled = false
-export let textFirst = false
-export let size = 'sm'
-export let onText = ''
-export let offText = ''
+	export let checked = false;
+	export let color = 'green';
+	export let disabled = false;
+	export let id = '';
+	export let name = '';
+	export let offText = '';
+	export let onText = '';
+	export let required = false;
+	export let size = 'sm';
+	export let textFirst = false;
 
-let clazz = ''
-export { clazz as class }
+	let clazz = '';
+	export { clazz as class };
 
-onMount(() => {
-	genId()
-})
+	onMount(() => {
+		genId();
+	});
 
-let uniqueId = ''
+	let uniqueId = '';
 
-function genId() {
-	if (id === undefined || typeof String) {
-		uniqueId = `toggle--${Math.random().toString(36).substring(2, 10)}`
-	} else {
-		uniqueId = id
+	function genId() {
+		if (id === undefined || typeof String) {
+			uniqueId = `toggle--${Math.random().toString(36).substring(2, 10)}`;
+		} else {
+			uniqueId = id;
+		}
 	}
-}
 </script>
 
-<div class="{clazz}">
+<div class={clazz}>
 	<!-- Toggle Button -->
 
 	<label
-		for="{uniqueId}"
+		for={uniqueId}
 		class="group flex max-w-max cursor-pointer items-center
 		{textFirst ? 'flex-row-reverse' : 'flex-row'}
-		{disabled ? 'opacity-40 cursor-not-allowed' : 'opacity-100'}">
+		{disabled ? 'opacity-40 cursor-not-allowed' : 'opacity-100'}"
+	>
 		<!-- toggle -->
 
 		<div class="relative mr-2">
 			<input
 				type="checkbox"
-				id="{uniqueId}"
-				name="{name || uniqueId}"
+				id={uniqueId}
+				name={name || uniqueId}
 				{disabled}
 				{required}
 				class="hidden"
 				bind:checked
-				on:change="{() => dispatch('change')}" />
+				on:change={() => dispatch('change')}
+			/>
 
 			<!-- line -->
 
@@ -100,8 +72,8 @@ function genId() {
                 {color == 'yellow' ? 'yellow' : ''}
                 {color == 'indigo' ? 'indigo' : ''}
                 {color == 'black' ? 'black' : ''}
-      			">
-			</div>
+      			"
+			></div>
 
 			<!-- dot -->
 
@@ -110,8 +82,8 @@ function genId() {
                 {size == 'xs' ? 'h-3 w-3' : ''}
                 {size == 'sm' ? 'h-4 w-4' : ''}
                 {size == 'md' ? 'h-7 w-7' : ''}
-       			">
-			</div>
+       			"
+			></div>
 		</div>
 
 		<slot>
@@ -130,7 +102,8 @@ function genId() {
 			{size == 'xs' ? 'text-sm' : ''}
             {size == 'sm' ? 'text-base' : ''}
             {size == 'md' ? 'text-xl' : ''}
-     		">
+     		"
+			>
 				{#if checked === true && onText}
 					{onText}
 				{:else if offText}
@@ -140,3 +113,33 @@ function genId() {
 		</slot>
 	</label>
 </div>
+
+<style>
+	input:checked ~ .dot {
+		transform: translateX(100%);
+	}
+	input:checked ~ .green {
+		@apply bg-green-500;
+	}
+	input:checked ~ .blue {
+		@apply bg-blue-500;
+	}
+	input:checked ~ .red {
+		@apply bg-red-500;
+	}
+	input:checked ~ .yellow {
+		@apply bg-yellow-500;
+	}
+	input:checked ~ .indigo {
+		@apply bg-indigo-500;
+	}
+	input:checked ~ .pink {
+		@apply bg-pink-500;
+	}
+	input:checked ~ .purple {
+		@apply bg-purple-500;
+	}
+	input:checked ~ .black {
+		@apply bg-zinc-800;
+	}
+</style>

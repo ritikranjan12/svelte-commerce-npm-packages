@@ -1,50 +1,41 @@
-<style>
-.applyRoundedNone {
-	@apply rounded-none;
-}
-.applyroundedFull {
-	@apply rounded-full;
-}
-</style>
-
 <script>
-import { createEventDispatcher } from 'svelte'
+	import { createEventDispatcher } from 'svelte';
 
-const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher();
 
-export let clickEffect = true
-export let disabled = false
-export let hideLoading = false
-export let loading = false
-export let loadingringsize = 'base'
-export let roundedFull = false
-export let roundedNone = false
-export let title = ''
-export let type = 'button'
+	export let clickEffect = true;
+	export let disabled = false;
+	export let hideLoading = false;
+	export let loading = false;
+	export let loadingringsize = 'base';
+	export let roundedFull = false;
+	export let roundedNone = false;
+	export let title = '';
+	export let type = 'button';
 
-// creates a `class` property, even
-// though it is a reserved word
-let clazz = ''
-export { clazz as class }
+	// creates a `class` property, even
+	// though it is a reserved word
+	let clazz = '';
+	export { clazz as class };
 
-let localLoadingPeriod = false
+	let localLoadingPeriod = false;
 
-function handleClick() {
-	if (loading || disabled) return
-	else {
-		dispatch('click')
+	function handleClick() {
+		if (loading || disabled) return;
+		else {
+			dispatch('click');
 
-		if (!hideLoading) {
-			if (loading === false) {
-				localLoadingPeriod = true
+			if (!hideLoading) {
+				if (loading === false) {
+					localLoadingPeriod = true;
 
-				setTimeout(() => {
-					localLoadingPeriod = false
-				}, 820)
+					setTimeout(() => {
+						localLoadingPeriod = false;
+					}, 820);
+				}
 			}
 		}
 	}
-}
 </script>
 
 <button
@@ -57,17 +48,19 @@ function handleClick() {
 		: 'hover:border-secondary-700 hover:bg-secondary-700'}	  
 	{!disabled ? 'border-secondary-500 bg-secondary-500' : ''}		  
     "
-	class:active:scale-95="{clickEffect && !disabled}"
-	class:applyRoundedNone="{roundedNone}"
-	class:applyroundedFull="{roundedFull}"
-	on:click="{handleClick}">
+	class:active:scale-95={clickEffect && !disabled}
+	class:applyRoundedNone={roundedNone}
+	class:applyroundedFull={roundedFull}
+	on:click={handleClick}
+>
 	<div class="flex items-center justify-center gap-2">
 		<slot />
 	</div>
 
 	{#if loading || localLoadingPeriod}
 		<div
-			class="absolute inset-0 flex cursor-not-allowed items-center justify-center bg-black bg-opacity-70">
+			class="absolute inset-0 flex cursor-not-allowed items-center justify-center bg-black bg-opacity-70"
+		>
 			<svg
 				class="mx-auto animate-spin text-white
 				{loadingringsize == 'xs' ? 'h-4 w-4' : ''}
@@ -76,7 +69,8 @@ function handleClick() {
 				{loadingringsize == 'lg' ? 'h-7 w-7' : ''}"
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
-				viewBox="0 0 24 24">
+				viewBox="0 0 24 24"
+			>
 				<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"
 				></circle>
 				<path
@@ -88,3 +82,12 @@ function handleClick() {
 		</div>
 	{/if}
 </button>
+
+<style>
+	.applyRoundedNone {
+		@apply rounded-none;
+	}
+	.applyroundedFull {
+		@apply rounded-full;
+	}
+</style>

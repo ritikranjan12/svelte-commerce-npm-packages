@@ -1,27 +1,29 @@
 <script>
-import { createEventDispatcher } from 'svelte'
-import { nanoid } from 'nanoid'
+	import { createEventDispatcher } from 'svelte';
+	import { nanoid } from 'nanoid';
 
-const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher();
 
-export let modelValue, value
+	export let modelValue;
+	export let value;
 
-let checked = false
+	let checked = false;
 
-if (modelValue === value) {
-	checked = true
-}
+	if (modelValue === value) {
+		checked = true;
+	}
 </script>
 
 <label class="flex items-center gap-2">
 	<input
 		type="checkbox"
-		id="{value + nanoid()}"
-		bind:group="{modelValue}"
+		id={value + nanoid()}
+		bind:group={modelValue}
 		class="mt-0.5 h-4 w-4 shrink-0 text-primary-500 focus:ring-0 focus:ring-offset-0"
-		name="{value}"
-		on:change="{() => dispatch('change', modelValue)}"
-		{value} />
+		name={value}
+		on:change={() => dispatch('change', modelValue)}
+		{value}
+	/>
 
 	<span class="max-w-max text-sm">
 		<slot />

@@ -1,39 +1,39 @@
 <script>
-import { createEventDispatcher } from 'svelte'
+	import { createEventDispatcher } from 'svelte';
 
-const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher();
 
-let clazz = ''
-export { clazz as class }
+	export let alphaNumeric = false;
+	export let autoFocus = false;
+	export let disabled = false;
+	export let error = false;
+	export let id = '';
+	export let isAlphaNumeric = null;
+	export let name = '';
+	export let placeholder = '';
+	export let required = false;
+	export let success = false;
+	export let value = '';
+	export let type = 'text';
+	export let maxlength;
 
-export let alphaNumeric = false
-export let autoFocus = false
-export let disabled = false
-export let error = false
-export let id = ''
-export let isAlphaNumeric = null
-export let name = ''
-export let placeholder = ''
-export let required = false
-export let success = false
-export let value = ''
-export let type = 'text'
-export let maxlength
+	let clazz = '';
+	export { clazz as class };
 
-function handleInput() {
-	if (alphaNumeric === true) {
-		isAlphaNumeric = value.match('^[A-Za-z0-9]+$')
+	function handleInput() {
+		if (alphaNumeric === true) {
+			isAlphaNumeric = value.match('^[A-Za-z0-9]+$');
 
-		if (isAlphaNumeric === null) {
-			error = true
+			if (isAlphaNumeric === null) {
+				error = true;
+			} else {
+				error = false;
+				dispatch('input');
+			}
 		} else {
-			error = false
-			dispatch('input')
+			dispatch('input');
 		}
-	} else {
-		dispatch('input')
 	}
-}
 </script>
 
 <div>
@@ -52,9 +52,10 @@ function handleInput() {
 			{placeholder}
 			{required}
 			{disabled}
-			aria-label="{placeholder}"
-			on:input="{handleInput}"
-			on:blur="{() => dispatch('blur')}" />
+			aria-label={placeholder}
+			on:input={handleInput}
+			on:blur={() => dispatch('blur')}
+		/>
 	{:else if type === 'email'}
 		<input
 			type="email"
@@ -70,9 +71,10 @@ function handleInput() {
 			{placeholder}
 			{required}
 			{disabled}
-			aria-label="{placeholder}"
-			on:input="{handleInput}"
-			on:blur="{() => dispatch('blur')}" />
+			aria-label={placeholder}
+			on:input={handleInput}
+			on:blur={() => dispatch('blur')}
+		/>
 	{:else if type === 'password'}
 		<input
 			type="password"
@@ -88,9 +90,10 @@ function handleInput() {
 			{placeholder}
 			{required}
 			{disabled}
-			aria-label="{placeholder}"
-			on:input="{handleInput}"
-			on:blur="{() => dispatch('blur')}" />
+			aria-label={placeholder}
+			on:input={handleInput}
+			on:blur={() => dispatch('blur')}
+		/>
 	{:else if type === 'date'}
 		<input
 			type="date"
@@ -106,9 +109,10 @@ function handleInput() {
 			{placeholder}
 			{required}
 			{disabled}
-			aria-label="{placeholder}"
-			on:input="{handleInput}"
-			on:blur="{() => dispatch('blur')}" />
+			aria-label={placeholder}
+			on:input={handleInput}
+			on:blur={() => dispatch('blur')}
+		/>
 	{:else if type === 'time'}
 		<input
 			type="time"
@@ -124,9 +128,10 @@ function handleInput() {
 			{placeholder}
 			{required}
 			{disabled}
-			aria-label="{placeholder}"
-			on:input="{handleInput}"
-			on:blur="{() => dispatch('blur')}" />
+			aria-label={placeholder}
+			on:input={handleInput}
+			on:blur={() => dispatch('blur')}
+		/>
 	{:else if type === 'number'}
 		<input
 			type="number"
@@ -142,9 +147,10 @@ function handleInput() {
 			{placeholder}
 			{required}
 			{disabled}
-			aria-label="{placeholder}"
-			on:input="{handleInput}"
-			on:blur="{() => dispatch('blur')}" />
+			aria-label={placeholder}
+			on:input={handleInput}
+			on:blur={() => dispatch('blur')}
+		/>
 	{:else if type === 'tel'}
 		<input
 			type="tel"
@@ -160,9 +166,10 @@ function handleInput() {
 			{placeholder}
 			{required}
 			{disabled}
-			aria-label="{placeholder}"
-			on:input="{handleInput}"
-			on:blur="{() => dispatch('blur')}" />
+			aria-label={placeholder}
+			on:input={handleInput}
+			on:blur={() => dispatch('blur')}
+		/>
 	{:else if type === 'datetime-local'}
 		<input
 			type="datetime-local"
@@ -178,9 +185,10 @@ function handleInput() {
 			{placeholder}
 			{required}
 			{disabled}
-			aria-label="{placeholder}"
-			on:input="{handleInput}"
-			on:blur="{() => dispatch('blur')}" />
+			aria-label={placeholder}
+			on:input={handleInput}
+			on:blur={() => dispatch('blur')}
+		/>
 	{/if}
 
 	{#if alphaNumeric && error}

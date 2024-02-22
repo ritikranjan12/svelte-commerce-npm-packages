@@ -1,57 +1,18 @@
-<style>
-.floating-label {
-	position: relative;
-}
-
-.floating-input {
-	font-size: 14px;
-	color: #1f2937;
-	display: block;
-	width: 100%;
-	padding: 20px 12px 0;
-	border-bottom: 2px solid #e5e7eb;
-}
-
-label {
-	color: #1f2937;
-	font-size: 14px;
-	font-weight: normal;
-	position: absolute;
-	pointer-events: none;
-	left: 12px;
-	top: 12px;
-	transition: 0.2s ease all;
-	-moz-transition: 0.2s ease all;
-	-webkit-transition: 0.2s ease all;
-}
-
-.floating-input:focus ~ label,
-.floating-input:not(:placeholder-shown) ~ label {
-	top: 4px;
-	font-size: 12px;
-	color: #1f2937;
-}
-
-.floating-input:focus {
-	border-bottom: 2px solid #112d4e;
-}
-</style>
-
 <script lang="ts">
-import { createEventDispatcher } from 'svelte'
+	import { createEventDispatcher } from 'svelte';
 
-const dispatch = createEventDispatcher()
+	const dispatch = createEventDispatcher();
 
-let clazz = ''
-export { clazz as class }
+	export let disabled = false;
+	export let label = '';
+	export let name: string;
+	export let placeholder = ' ';
+	export let required = false;
+	export let type = 'text';
+	export let value = '';
 
-export let label = '',
-	type = 'text',
-	value = '',
-	name: string,
-	placeholder = ' ',
-	disabled = false,
-	required = false
+	let clazz = '';
+	export { clazz as class };
 </script>
 
 <div class="{clazz} floating-label">
@@ -66,10 +27,11 @@ export let label = '',
 				? 'cursor-not-allowed bg-zinc-100'
 				: ' bg-white hover:bg-zinc-50'}"
 			{placeholder}
-			aria-label="{label}"
+			aria-label={label}
 			{disabled}
-			on:input="{() => dispatch('input')}"
-			on:change="{() => dispatch('change')}" />
+			on:input={() => dispatch('input')}
+			on:change={() => dispatch('change')}
+		/>
 	{:else if type === 'email'}
 		<input
 			{required}
@@ -81,10 +43,11 @@ export let label = '',
 				? 'cursor-not-allowed bg-zinc-100'
 				: ' bg-white hover:bg-zinc-50'}"
 			{placeholder}
-			aria-label="{label}"
+			aria-label={label}
 			{disabled}
-			on:input="{() => dispatch('input')}"
-			on:change="{() => dispatch('change')}" />
+			on:input={() => dispatch('input')}
+			on:change={() => dispatch('change')}
+		/>
 	{:else if type === 'password'}
 		<input
 			{required}
@@ -96,10 +59,11 @@ export let label = '',
 				? 'cursor-not-allowed bg-zinc-100'
 				: ' bg-white hover:bg-zinc-50'}"
 			{placeholder}
-			aria-label="{label}"
+			aria-label={label}
 			{disabled}
-			on:input="{() => dispatch('input')}"
-			on:change="{() => dispatch('change')}" />
+			on:input={() => dispatch('input')}
+			on:change={() => dispatch('change')}
+		/>
 	{:else if type === 'date'}
 		<input
 			{required}
@@ -111,10 +75,11 @@ export let label = '',
 				? 'cursor-not-allowed bg-zinc-100'
 				: ' bg-white hover:bg-zinc-50'}"
 			{placeholder}
-			aria-label="{label}"
+			aria-label={label}
 			{disabled}
-			on:input="{() => dispatch('input')}"
-			on:change="{() => dispatch('change')}" />
+			on:input={() => dispatch('input')}
+			on:change={() => dispatch('change')}
+		/>
 	{:else if type === 'time'}
 		<input
 			{required}
@@ -126,10 +91,11 @@ export let label = '',
 				? 'cursor-not-allowed bg-zinc-100'
 				: ' bg-white hover:bg-zinc-50'}"
 			{placeholder}
-			aria-label="{label}"
+			aria-label={label}
 			{disabled}
-			on:input="{() => dispatch('input')}"
-			on:change="{() => dispatch('change')}" />
+			on:input={() => dispatch('input')}
+			on:change={() => dispatch('change')}
+		/>
 	{:else if type === 'number'}
 		<input
 			{required}
@@ -141,10 +107,11 @@ export let label = '',
 				? 'cursor-not-allowed bg-zinc-100'
 				: ' bg-white hover:bg-zinc-50'}"
 			{placeholder}
-			aria-label="{label}"
+			aria-label={label}
 			{disabled}
-			on:input="{() => dispatch('input')}"
-			on:change="{() => dispatch('change')}" />
+			on:input={() => dispatch('input')}
+			on:change={() => dispatch('change')}
+		/>
 	{:else if type === 'tel'}
 		<input
 			{required}
@@ -156,10 +123,11 @@ export let label = '',
 				? 'cursor-not-allowed bg-zinc-100'
 				: ' bg-white hover:bg-zinc-50'}"
 			{placeholder}
-			aria-label="{label}"
+			aria-label={label}
 			{disabled}
-			on:input="{() => dispatch('input')}"
-			on:change="{() => dispatch('change')}" />
+			on:input={() => dispatch('input')}
+			on:change={() => dispatch('change')}
+		/>
 	{:else if type === 'datetime-local'}
 		<input
 			{required}
@@ -171,11 +139,51 @@ export let label = '',
 				? 'cursor-not-allowed bg-zinc-100'
 				: ' bg-white hover:bg-zinc-50'}"
 			{placeholder}
-			aria-label="{label}"
+			aria-label={label}
 			{disabled}
-			on:input="{() => dispatch('input')}"
-			on:change="{() => dispatch('change')}" />
+			on:input={() => dispatch('input')}
+			on:change={() => dispatch('change')}
+		/>
 	{/if}
 
 	<label for="textbox">{label}</label>
 </div>
+
+<style>
+	.floating-label {
+		position: relative;
+	}
+
+	.floating-input {
+		font-size: 14px;
+		color: #1f2937;
+		display: block;
+		width: 100%;
+		padding: 20px 12px 0;
+		border-bottom: 2px solid #e5e7eb;
+	}
+
+	label {
+		color: #1f2937;
+		font-size: 14px;
+		font-weight: normal;
+		position: absolute;
+		pointer-events: none;
+		left: 12px;
+		top: 12px;
+		transition: 0.2s ease all;
+		-moz-transition: 0.2s ease all;
+		-webkit-transition: 0.2s ease all;
+	}
+
+	.floating-input:focus ~ label,
+	.floating-input:not(:placeholder-shown) ~ label {
+		top: 4px;
+		font-size: 12px;
+		color: #1f2937;
+	}
+
+	.floating-input:focus {
+		border-bottom: 2px solid #112d4e;
+	}
+</style>
