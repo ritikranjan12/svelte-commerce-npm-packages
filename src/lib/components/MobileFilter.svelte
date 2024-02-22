@@ -2,7 +2,7 @@
 	// import AllMegamenuStore from '$lib/store/megamenu'
 	// import Cookie from 'cookie-universal'
 	import { browser } from '$app/environment';
-	import { constructURL2, navigateToProperPath, toast } from '@misiki/litekart-utils';
+	import { constructURL2, navigateToProperPath, sorts, toast } from '@misiki/litekart-utils';
 	import { createEventDispatcher, onMount } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import { getAllMegamenuFromStore } from '$lib/store/megamenu';
@@ -10,7 +10,6 @@
 	import { page } from '$app/stores';
 	import { RadioEs, CheckboxEs, PrimaryButton } from '$lib/ui';
 	import { services } from '@misiki/litekart-utils';
-	import { sorts } from '$lib/config';
 	import Fuse from 'fuse.js';
 
 	// const cookies = Cookie()

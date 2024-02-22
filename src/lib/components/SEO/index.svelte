@@ -6,12 +6,12 @@
 		ogLanguage,
 		siteLanguage,
 		siteShortTitle
-	} from '$lib/config';
+	} from '@misiki/litekart-utils';
+	import { page } from '$app/stores';
 	import OpenGraph from './OpenGraph.svelte';
 	import Product from './Product.svelte';
 	import SchemaOrg from './SchemaOrg.svelte';
 	import X from './X.svelte';
-	import { page } from '$app/stores';
 
 	const {
 		author,
