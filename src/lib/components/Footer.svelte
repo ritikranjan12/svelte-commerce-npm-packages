@@ -1,38 +1,19 @@
-<style>
-    .link-underline {
-        border-bottom-width: 0;
-        background-image: linear-gradient(transparent, transparent),
-            linear-gradient(rgb(249 250 251), rgb(249 250 251));
-        background-size: 0 1px;
-        background-position: 0 100%;
-        background-repeat: no-repeat;
-        transition: background-size 0.5s ease-in-out;
-    }
-    
-    .link-underline-gray {
-        background-image: linear-gradient(transparent, transparent),
-            linear-gradient(rgb(107 114 128), rgb(107 114 128));
-    }
-    
-    .link-underline:hover {
-        background-size: 100% 1px;
-        background-position: 0 100%;
-    }
-</style>
-
 <script>
-    export let data = {} 
+	import { navigateToProperPath } from '@misiki/litekart-utils';
+	
+	export let data = {};
 
-    let popularSearches = data.popularSearches || {}
-    let pages = data.pages || []
-    let megamenu = data.megamenu || []
-    let page = data.page || {}
+	let popularSearches = data.popularSearches || {};
+	let pages = data.pages || [];
+	let megamenu = data.megamenu || [];
+	let page = data.page || {};
 </script>
 
 <footer class="w-full justify-center bg-zinc-50 p-3 text-sm sm:p-10">
 	<div class="container mx-auto max-w-6xl">
 		<div
-			class="mb-4 flex w-full flex-col flex-wrap items-start justify-start gap-5 sm:mb-8 sm:gap-10 h-full sm:max-h-[35rem] xl:max-h-80 overflow-hidden">
+			class="mb-4 flex w-full flex-col flex-wrap items-start justify-start gap-5 sm:mb-8 sm:gap-10 h-full sm:max-h-[35rem] xl:max-h-80 overflow-hidden"
+		>
 			{#if $page.data.store?.description}
 				<div>
 					<h6 class="mb-4 whitespace-nowrap uppercase">
@@ -55,13 +36,15 @@
 								<a
 									href="/p/{page.link || page.slug}"
 									aria-label="Click to visit this page"
-									class="capitalize link-underline link-underline-gray whitespace-pre-wrap">
+									class="capitalize link-underline link-underline-gray whitespace-pre-wrap"
+								>
 									{page.name}
 								</a>
 
 								{#if page.new}
 									<div
-										class="ml-2 max-w-max rounded bg-primary-500 py-[0.1rem] px-1 text-[0.5rem] font-semibold leading-3 tracking-wider text-white">
+										class="ml-2 max-w-max rounded bg-primary-500 py-[0.1rem] px-1 text-[0.5rem] font-semibold leading-3 tracking-wider text-white"
+									>
 										NEW
 									</div>
 								{/if}
@@ -73,7 +56,8 @@
 						<a
 							href="/blogs"
 							aria-label="Click to visit this page"
-							class="link-underline link-underline-gray whitespace-pre-wrap">
+							class="link-underline link-underline-gray whitespace-pre-wrap"
+						>
 							Blogs
 						</a>
 					</li>
@@ -82,7 +66,8 @@
 						<a
 							href="/my/orders"
 							aria-label="Click to visit this page"
-							class="link-underline link-underline-gray whitespace-pre-wrap">
+							class="link-underline link-underline-gray whitespace-pre-wrap"
+						>
 							Track Your Order
 						</a>
 					</li>
@@ -90,10 +75,11 @@
 					{#if $page.data.store?.isMultiVendor}
 						<li class="flex max-w-max items-center">
 							<a
-								href="{$page.data.store?.adminUrl}"
+								href={$page.data.store?.adminUrl}
 								target="_blank"
 								aria-label="Click to visit this page"
-								class="link-underline link-underline-gray whitespace-pre-wrap">
+								class="link-underline link-underline-gray whitespace-pre-wrap"
+							>
 								Vendor Login
 							</a>
 						</li>
@@ -103,12 +89,14 @@
 								href="{$page.data.store?.adminUrl}?role=vendor&store={$page.data.storeId}"
 								target="_blank"
 								aria-label="Click to visit this page"
-								class="link-underline link-underline-gray whitespace-pre-wrap">
+								class="link-underline link-underline-gray whitespace-pre-wrap"
+							>
 								Join as Vendor
 							</a>
 
 							<div
-								class="ml-2 max-w-max rounded bg-primary-500 py-[0.1rem] px-1 text-[0.5rem] font-semibold leading-3 tracking-wider text-white">
+								class="ml-2 max-w-max rounded bg-primary-500 py-[0.1rem] px-1 text-[0.5rem] font-semibold leading-3 tracking-wider text-white"
+							>
 								NEW
 							</div>
 						</li>
@@ -124,15 +112,17 @@
 						{#each megamenu as category}
 							<li class="flex max-w-max items-center">
 								<a
-									href="{navigateToProperPath(category.link || category.slug)}"
+									href={navigateToProperPath(category.link || category.slug)}
 									aria-label="Click to visit this page"
-									class="link-underline link-underline-gray whitespace-pre-wrap">
+									class="link-underline link-underline-gray whitespace-pre-wrap"
+								>
 									{category.name}
 								</a>
 
 								{#if category.new}
 									<div
-										class="ml-2 max-w-max rounded bg-primary-500 py-[0.1rem] px-1 text-[0.5rem] font-semibold leading-3 tracking-wider text-white">
+										class="ml-2 max-w-max rounded bg-primary-500 py-[0.1rem] px-1 text-[0.5rem] font-semibold leading-3 tracking-wider text-white"
+									>
 										NEW
 									</div>
 								{/if}
@@ -156,7 +146,8 @@
 										viewBox="0 0 24 24"
 										stroke-width="1.5"
 										stroke="currentColor"
-										class="h-5 w-5 shrink-0">
+										class="h-5 w-5 shrink-0"
+									>
 										<path
 											stroke-linecap="round"
 											stroke-linejoin="round"
@@ -182,7 +173,8 @@
 										viewBox="0 0 24 24"
 										stroke-width="1.5"
 										stroke="currentColor"
-										class="h-5 w-5 shrink-0">
+										class="h-5 w-5 shrink-0"
+									>
 										<path
 											stroke-linecap="round"
 											stroke-linejoin="round"
@@ -207,7 +199,8 @@
 									viewBox="0 0 24 24"
 									stroke-width="1.5"
 									stroke="currentColor"
-									class="h-5 w-5 shrink-0">
+									class="h-5 w-5 shrink-0"
+								>
 									<path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"
 									></path>
 								</svg>
@@ -228,11 +221,13 @@
 									viewBox="0 0 24 24"
 									stroke-width="1.5"
 									stroke="currentColor"
-									class="h-5 w-5 shrink-0">
+									class="h-5 w-5 shrink-0"
+								>
 									<path
 										stroke-linecap="round"
 										stroke-linejoin="round"
-										d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+										d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+									></path>
 								</svg>
 
 								<span>Working Days/Hours</span>
@@ -278,10 +273,11 @@
 						{#if $page.data.store?.socialSharingButtons?.active?.val && $page.data.store?.socialSharingButtons?.facebook?.val}
 							<li class="max-w-max">
 								<a
-									href="{$page.data.store?.socialSharingButtons?.facebook?.val}"
+									href={$page.data.store?.socialSharingButtons?.facebook?.val}
 									target="_blank"
 									rel="noopener noreferrer"
-									aria-label="Click for facebook link">
+									aria-label="Click for facebook link"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										class="h-5 w-5 transition duration-300 hover:text-[#4267B2]"
@@ -290,7 +286,8 @@
 										stroke="currentColor"
 										fill="none"
 										stroke-linecap="round"
-										stroke-linejoin="round">
+										stroke-linejoin="round"
+									>
 										<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
 										<path
 											d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3"
@@ -305,10 +302,11 @@
 						{#if $page.data.store?.socialSharingButtons?.active?.val && $page.data.store?.socialSharingButtons?.instagram?.val}
 							<li class="max-w-max">
 								<a
-									href="{$page.data.store?.socialSharingButtons?.instagram?.val}"
+									href={$page.data.store?.socialSharingButtons?.instagram?.val}
 									target="_blank"
 									rel="noopener noreferrer"
-									aria-label="Click for instagram link">
+									aria-label="Click for instagram link"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										class="h-5 w-5 transition duration-300 hover:text-[#C13584]"
@@ -317,7 +315,8 @@
 										stroke="currentColor"
 										fill="none"
 										stroke-linecap="round"
-										stroke-linejoin="round">
+										stroke-linejoin="round"
+									>
 										<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
 										<rect x="4" y="4" width="16" height="16" rx="4"></rect>
 										<circle cx="12" cy="12" r="3"></circle>
@@ -332,10 +331,11 @@
 						{#if $page.data.store?.socialSharingButtons?.active?.val && $page.data.store?.socialSharingButtons?.telegram?.val}
 							<li class="max-w-max">
 								<a
-									href="{$page.data.store?.socialSharingButtons?.telegram?.val}"
+									href={$page.data.store?.socialSharingButtons?.telegram?.val}
 									target="_blank"
 									rel="noopener noreferrer"
-									aria-label="Click for telegram link">
+									aria-label="Click for telegram link"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										class="h-5 w-5 transition duration-300 hover:text-[#229ED9]"
@@ -344,7 +344,8 @@
 										stroke="currentColor"
 										fill="none"
 										stroke-linecap="round"
-										stroke-linejoin="round">
+										stroke-linejoin="round"
+									>
 										<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
 										<path d="M15 10l-4 4l6 6l4 -16l-18 7l4 2l2 6l3 -4"></path>
 									</svg>
@@ -357,10 +358,11 @@
 						{#if $page.data.store?.socialSharingButtons?.active?.val && $page.data.store?.socialSharingButtons?.twitter?.val}
 							<li class="max-w-max">
 								<a
-									href="{$page.data.store?.socialSharingButtons?.twitter?.val}"
+									href={$page.data.store?.socialSharingButtons?.twitter?.val}
 									target="_blank"
 									rel="noopener noreferrer"
-									aria-label="Click for twitter link">
+									aria-label="Click for twitter link"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										class="h-5 w-5 transition duration-300 hover:text-[#1DA1F2]"
@@ -369,7 +371,8 @@
 										stroke="currentColor"
 										fill="none"
 										stroke-linecap="round"
-										stroke-linejoin="round">
+										stroke-linejoin="round"
+									>
 										<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
 										<path
 											d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z"
@@ -384,10 +387,11 @@
 						{#if $page.data.store?.socialSharingButtons?.active?.val && $page.data.store?.socialSharingButtons?.reddit?.val}
 							<li class="max-w-max">
 								<a
-									href="{$page.data.store?.socialSharingButtons?.reddit?.val}"
+									href={$page.data.store?.socialSharingButtons?.reddit?.val}
 									target="_blank"
 									rel="noopener noreferrer"
-									aria-label="Click for reddit link">
+									aria-label="Click for reddit link"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										class="h-5 w-5 transition duration-300 hover:text-[#FF5700]"
@@ -398,7 +402,8 @@
 										stroke="currentColor"
 										fill="none"
 										stroke-linecap="round"
-										stroke-linejoin="round">
+										stroke-linejoin="round"
+									>
 										<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
 										<path
 											d="M12 8c2.648 0 5.028 .826 6.675 2.14a2.5 2.5 0 0 1 2.326 4.36c0 3.59 -4.03 6.5 -9 6.5c-4.875 0 -8.845 -2.8 -9 -6.294l-1 -.206a2.5 2.5 0 0 1 2.326 -4.36c1.646 -1.313 4.026 -2.14 6.674 -2.14z"
@@ -418,10 +423,11 @@
 						{#if $page.data.store?.socialSharingButtons?.active?.val && $page.data.store?.socialSharingButtons?.linkedin?.val}
 							<li class="max-w-max">
 								<a
-									href="{$page.data.store?.socialSharingButtons?.linkedin?.val}"
+									href={$page.data.store?.socialSharingButtons?.linkedin?.val}
 									target="_blank"
 									rel="noopener noreferrer"
-									aria-label="Click for linkedin link">
+									aria-label="Click for linkedin link"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										class="h-5 w-5 transition duration-300 hover:text-[#0077b5]"
@@ -430,7 +436,8 @@
 										stroke="currentColor"
 										fill="none"
 										stroke-linecap="round"
-										stroke-linejoin="round">
+										stroke-linejoin="round"
+									>
 										<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
 										<rect x="4" y="4" width="16" height="16" rx="2"></rect>
 										<line x1="8" y1="11" x2="8" y2="16"></line>
@@ -447,10 +454,11 @@
 						{#if $page.data.store?.socialSharingButtons?.active?.val && $page.data.store?.socialSharingButtons?.pinterest?.val}
 							<li class="max-w-max">
 								<a
-									href="{$page.data.store?.socialSharingButtons?.pinterest?.val}"
+									href={$page.data.store?.socialSharingButtons?.pinterest?.val}
 									target="_blank"
 									rel="noopener noreferrer"
-									aria-label="Click for pinterest link">
+									aria-label="Click for pinterest link"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										class="h-5 w-5 transition duration-300 hover:text-[#c8232c]"
@@ -459,7 +467,8 @@
 										stroke="currentColor"
 										fill="none"
 										stroke-linecap="round"
-										stroke-linejoin="round">
+										stroke-linejoin="round"
+									>
 										<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
 										<line x1="8" y1="20" x2="12" y2="11"></line>
 										<path
@@ -476,10 +485,11 @@
 						{#if $page.data.store?.socialSharingButtons?.active?.val && $page.data.store?.socialSharingButtons?.youtube?.val}
 							<li class="max-w-max">
 								<a
-									href="{$page.data.store?.socialSharingButtons?.youtube?.val}"
+									href={$page.data.store?.socialSharingButtons?.youtube?.val}
 									target="_blank"
 									rel="noopener noreferrer"
-									aria-label="Click for youtube link">
+									aria-label="Click for youtube link"
+								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										class="h-5 w-5 transition duration-300 hover:text-[#FF0000]"
@@ -488,7 +498,8 @@
 										stroke="currentColor"
 										fill="none"
 										stroke-linecap="round"
-										stroke-linejoin="round">
+										stroke-linejoin="round"
+									>
 										<path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
 										<rect x="3" y="5" width="18" height="14" rx="4"></rect>
 										<path d="M10 9l5 3l-5 3z"></path>
@@ -515,7 +526,8 @@
 							<a
 								href="/search?q={p.text}"
 								aria-label="Click for the products related to this field"
-								class="link-underline link-underline-gray capitalize">
+								class="link-underline link-underline-gray capitalize"
+							>
 								{p.text}
 							</a>
 
@@ -543,17 +555,19 @@
 		<hr class="mb-4 w-full border-t sm:mb-8" />
 
 		<div
-			class="flex flex-col sm:flex-row items-center justify-center sm:justify-between text-sm text-zinc-500 gap-5 md:justify-between">
+			class="flex flex-col sm:flex-row items-center justify-center sm:justify-between text-sm text-zinc-500 gap-5 md:justify-between"
+		>
 			<p class="text-center sm:text-left flex flex-col sm:flex-row gap-1">
 				<span>
 					© {$page.data.store?.websiteName}
 				</span>
 				<span>
 					Powered by <a
-						href="{$page.data.store?.saasDomain || 'https://litekart.in'}"
+						href={$page.data.store?.saasDomain || 'https://litekart.in'}
 						rel="external"
 						class="hover:underline"
-						target="_blank">
+						target="_blank"
+					>
 						{$page.data.store?.saasName || 'Litekart'}
 					</a>
 				</span>
@@ -563,17 +577,41 @@
 				<a
 					href="/contact-us"
 					aria-label="Click to visit this page"
-					class="font-bold uppercase text-zinc-500 transition duration-300 hover:text-zinc-800">
+					class="font-bold uppercase text-zinc-500 transition duration-300 hover:text-zinc-800"
+				>
 					Contact Us
 				</a>
 
 				<a
 					href="/faqs"
 					aria-label="Click to visit this page"
-					class="font-bold uppercase text-zinc-500 transition duration-300 hover:text-zinc-800">
+					class="font-bold uppercase text-zinc-500 transition duration-300 hover:text-zinc-800"
+				>
 					Faqs
 				</a>
 			</div>
 		</div>
 	</div>
 </footer>
+
+<style>
+	.link-underline {
+		border-bottom-width: 0;
+		background-image: linear-gradient(transparent, transparent),
+			linear-gradient(rgb(249 250 251), rgb(249 250 251));
+		background-size: 0 1px;
+		background-position: 0 100%;
+		background-repeat: no-repeat;
+		transition: background-size 0.5s ease-in-out;
+	}
+
+	.link-underline-gray {
+		background-image: linear-gradient(transparent, transparent),
+			linear-gradient(rgb(107 114 128), rgb(107 114 128));
+	}
+
+	.link-underline:hover {
+		background-size: 100% 1px;
+		background-position: 0 100%;
+	}
+</script>
