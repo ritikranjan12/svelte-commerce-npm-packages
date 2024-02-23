@@ -35,14 +35,14 @@
 
 		// console.log('autocomplete', autocomplete)
 
-		if (autocomplete?.length && autocomplete[0].slug && autocomplete[0].type === 'products') {
-			goto(`/product/${autocomplete[0].slug}`);
+		if (autocomplete?.length && autocomplete[0]?.slug && autocomplete[0]?.type === 'products') {
+			goto(`/product/${autocomplete[0]?.slug}`);
 		} else if (
 			autocomplete?.length &&
-			autocomplete[0].slug &&
-			autocomplete[0].type === 'categories'
+			autocomplete[0]?.slug &&
+			autocomplete[0]?.type === 'categories'
 		) {
-			goto(`/${autocomplete[0].slug}`);
+			goto(`/${autocomplete[0]?.slug}`);
 		} else {
 			goto(`/search?q=${q}`);
 		}
