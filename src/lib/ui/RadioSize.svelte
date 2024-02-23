@@ -3,7 +3,7 @@
 
 	const dispatch = createEventDispatcher();
 
-	export let modelValue, 
+	export let modelValue;
 	export let value;
 
 	let checked = false;
