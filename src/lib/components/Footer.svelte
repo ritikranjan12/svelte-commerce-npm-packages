@@ -1,5 +1,5 @@
 <script>
-	import { navigateToProperPath } from '@misiki/litekart-utils';
+	import { utils } from '@misiki/litekart-utils';
 
 	export let data = {};
 
@@ -112,7 +112,7 @@
 						{#each megamenu as category}
 							<li class="flex max-w-max items-center">
 								<a
-									href={navigateToProperPath(category.link || category.slug)}
+									href={utils.navigateToProperPath(category.link || category.slug)}
 									aria-label="Click to visit this page"
 									class="link-underline link-underline-gray whitespace-pre-wrap"
 								>
