@@ -1,8 +1,8 @@
 <script>
-	// import lightning from '$lib/assets/payment-processing/lightning.gif'
-	// import list from '$lib/assets/payment-processing/list.gif'
-	// import tick from '$lib/assets/payment-processing/tick.gif'
 	import { onMount } from 'svelte';
+	import lightning from '$lib/assets/payment-processing/lightning.gif';
+	import list from '$lib/assets/payment-processing/list.gif';
+	import tick from '$lib/assets/payment-processing/tick.gif';
 
 	export let loadingForPaymentProcessingSteps = false;
 
@@ -26,7 +26,7 @@
 		<div
 			class="h-60 w-60 bg-white p-4 flex flex-col gap-4 items-center justify-center text-center font-semibold rounded transform translate-x-full animate-slide-in-left"
 		>
-			<!-- <img src="{lightning}" alt="" class="h-8 w-auto object-contain object-center" /> -->
+			<img src={lightning} alt="" class="h-8 w-auto object-contain object-center" />
 
 			<span> Fetching your order info </span>
 		</div>
@@ -34,7 +34,7 @@
 		<div
 			class="h-60 w-60 bg-white p-4 flex flex-col gap-4 items-center justify-center text-center font-semibold rounded transform animate-bounce"
 		>
-			<!-- <img src="{list}" alt="" class="h-8 w-auto object-contain object-center" /> -->
+			<img src={list} alt="" class="h-8 w-auto object-contain object-center" />
 
 			<span>Filling your information</span>
 		</div>
@@ -42,7 +42,7 @@
 		<div
 			class="h-60 w-60 bg-white p-4 flex flex-col gap-4 items-center justify-center text-center font-semibold rounded transform animate-bounce"
 		>
-			<!-- <img src="{tick}" alt="" class="h-8 w-auto object-contain object-center" /> -->
+			<img src={tick} alt="" class="h-8 w-auto object-contain object-center" />
 
 			<span>All set</span>
 		</div>

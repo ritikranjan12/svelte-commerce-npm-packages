@@ -1,8 +1,8 @@
 <script>
-	// import { GetColorName } from 'hex-color-to-color-name'
-	// import ColoredBackground from '$lib/assets/konva/colored_background.png'
 	import { createEventDispatcher } from 'svelte';
+	import { GetColorName } from 'hex-color-to-color-name';
 	import { nanoid } from 'nanoid';
+	import ColoredBackground from '$lib/assets/konva/colored_background.png';
 
 	const dispatch = createEventDispatcher();
 
@@ -183,10 +183,11 @@
 							>
 								{#if isColor && i.key}
 									{#if i.key === 'MultiColor'}
-										<!-- <img
-											src="{ColoredBackground}"
+										<img
+											src={ColoredBackground}
 											alt=""
-											class="h-5 w-5 shrink-0 border rounded-full object-cover object-center" /> -->
+											class="h-5 w-5 shrink-0 border rounded-full object-cover object-center"
+										/>
 
 										<span>
 											{i.key}
@@ -197,9 +198,9 @@
 											style="background-color: {i.key};"
 										></div>
 
-										<!-- <span>
+										<span>
 											{GetColorName(i.key)}
-										</span> -->
+										</span>
 									{/if}
 								{:else}
 									<span>{i.key}</span>
@@ -259,10 +260,11 @@
 						>
 							{#if isColor && i.key}
 								{#if i.key === 'MultiColor'}
-									<!-- <img
-										src="{ColoredBackground}"
+									<img
+										src={ColoredBackground}
 										alt=""
-										class="h-5 w-5 shrink-0 border rounded-full object-cover object-center" /> -->
+										class="h-5 w-5 shrink-0 border rounded-full object-cover object-center"
+									/>
 
 									<span>
 										{i.key}
@@ -273,9 +275,9 @@
 										style="background-color: {i.key};"
 									></div>
 
-									<!-- <span>
+									<span>
 										{GetColorName(i.key)}
-									</span> -->
+									</span>
 								{/if}
 							{:else}
 								<span>{i.key}</span>

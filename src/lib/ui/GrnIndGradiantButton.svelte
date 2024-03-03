@@ -8,9 +8,8 @@
 	export let title = '';
 	export let type = 'button';
 
-	let clazz;
-
-	export { clazz as class };
+	let className;
+	export { className as class };
 
 	const dispatch = createEventDispatcher();
 
@@ -36,7 +35,7 @@
 	{type}
 	{title}
 	{disabled}
-	class="{clazz} relative transform items-center justify-center bg-white px-4 py-2 text-center font-semibold tracking-wider text-white shadow-md transition duration-700 focus:outline-none focus:ring-0 focus:ring-offset-0 hover:shadow active:scale-95
+	class="{className} relative transform items-center justify-center bg-white px-4 py-2 text-center font-semibold tracking-wider text-white shadow-md transition duration-700 focus:outline-none focus:ring-0 focus:ring-offset-0 hover:shadow active:scale-95
     {disabled ? 'bg-zinc-400 cursor-not-allowed' : 'gradient'}
     {rounded ? 'rounded-full ' : 'rounded'}"
 	on:click={handleClick}

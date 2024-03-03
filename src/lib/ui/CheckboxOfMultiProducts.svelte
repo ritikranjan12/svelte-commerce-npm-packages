@@ -1,10 +1,7 @@
-<!-- <script>
-	// import { storeStore } from '$lib/store/store'
-	import { browser } from '$app/environment';
-	import { createEventDispatcher, onMount } from 'svelte';
-	import { currency } from '@misiki/litekart-utils';
+<script>
+	import { createEventDispatcher } from 'svelte';
 	import { page } from '$app/stores';
-	import LazyImg from '$lib/components/Image/LazyImg.svelte';
+	import { currency } from '@misiki/litekart-utils/dist/utils';
 
 	const dispatch = createEventDispatcher();
 
@@ -13,15 +10,6 @@
 	export let name = '';
 	export let required = false;
 	export let selectedItems = [];
-
-	// let store = {}
-	$: store = $page.data?.store;
-
-	// onMount(() => {
-	// 	if (browser) {
-	// 		storeStore.subscribe((value) => (store = value))
-	// 	}
-	// })
 </script>
 
 {#if items?.length}
@@ -43,18 +31,11 @@
 						/>
 
 						<div class="flex-1 text-sm first-letter:uppercase flex items-center gap-2">
-							<LazyImg
-								src={i.img}
-								alt=" "
-								aspect_ratio="3:4"
-								width="32"
-								height="42"
-								class="w-8 h-10 object-contain object-center"
-							/>
+							<img src={i.img} alt={i.name} class="w-8 h-10 object-contain object-center" />
 
 							<p class="flex-1">
 								{i.name} at
-								{currency(i.price, store?.currencySymbol)}
+								{currency(i.price, $page.data?.store?.currencySymbol)}
 							</p>
 						</div>
 					</label>
@@ -80,4 +61,4 @@
 	input[type='search']::-webkit-search-cancel-button {
 		display: none;
 	}
-</style> -->
+</style>
